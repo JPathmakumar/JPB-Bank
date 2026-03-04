@@ -661,21 +661,35 @@
         <div class="action-title">Withdraw</div>
         <div class="action-desc">Take money out</div>
       </div>
-      <div class="action-card" onclick="togglePanel('panel-transfer')">
+      <div class="action-card" id="card-transfer" onclick="togglePanel('panel-transfer')">
         <span class="action-icon">⇄</span>
         <div class="action-title">Transfer</div>
         <div class="action-desc">Send to another account</div>
       </div>
-      <div class="action-card" onclick="togglePanel('panel-history')">
+      <div class="action-card" id="card-history" onclick="togglePanel('panel-history')">
         <span class="action-icon">◷</span>
         <div class="action-title">History</div>
         <div class="action-desc">View transactions</div>
+      </div>
+      <div class="action-card" id="card-add-account" onclick="togglePanel('panel-add-account')" style="display:none;">
+        <span class="action-icon">✦</span>
+        <div class="action-title">Add Account</div>
+        <div class="action-desc">Create a new customer</div>
+      </div>
+      <div class="action-card" id="card-del-account" onclick="togglePanel('panel-del-account')" style="display:none;">
+        <span class="action-icon">✕</span>
+        <div class="action-title">Delete Account</div>
+        <div class="action-desc">Remove a customer</div>
       </div>
     </div>
 
     <!-- DEPOSIT PANEL -->
     <div class="panel" id="panel-deposit">
       <div class="panel-title">Deposit Funds</div>
+      <div class="panel-field" id="admin-target-wrap" style="display:none;">
+        <label id="dep-label">Select Account</label>
+        <select id="admin-dep-target"></select>
+      </div>
       <div class="panel-field">
         <label>Amount ($)</label>
         <input type="number" id="dep-amount" placeholder="0.00" min="0.01" step="0.01" />
@@ -687,6 +701,10 @@
     <!-- WITHDRAW PANEL -->
     <div class="panel" id="panel-withdraw">
       <div class="panel-title">Withdraw Funds</div>
+      <div class="panel-field" id="admin-with-wrap" style="display:none;">
+        <label>Select Account</label>
+        <select id="admin-with-target"></select>
+      </div>
       <div class="panel-field">
         <label>Amount ($)</label>
         <input type="number" id="with-amount" placeholder="0.00" min="0.01" step="0.01" />
@@ -717,6 +735,39 @@
       <div class="panel-title">Transaction History</div>
       <ul class="tx-list" id="tx-list"></ul>
     </div>
+
+    <!-- ADD ACCOUNT PANEL (admin only) -->
+    <div class="panel" id="panel-add-account">
+      <div class="panel-title">Add New Account</div>
+      <div class="panel-field">
+        <label>Full Name</label>
+        <input type="text" id="new-name" placeholder="e.g. Jordan" autocomplete="off" />
+      </div>
+      <div class="panel-field">
+        <label>Account Number</label>
+        <input type="text" id="new-acct" placeholder="e.g. 123 456 7890" autocomplete="off" />
+      </div>
+      <div class="panel-field">
+        <label>Starting Balance ($)</label>
+        <input type="number" id="new-bal" placeholder="0.00" min="0" step="0.01" />
+      </div>
+      <button class="panel-btn" onclick="doAddAccount()">Create Account</button>
+      <div class="panel-result" id="add-result"></div>
+    </div>
+
+    <!-- DELETE ACCOUNT PANEL (admin only) -->
+    <div class="panel" id="panel-del-account">
+      <div class="panel-title">Delete Account</div>
+      <div class="panel-field">
+        <label>Select Account to Delete</label>
+        <select id="del-target"></select>
+      </div>
+      <div id="del-confirm-wrap" style="display:none; margin-top:0.5rem;">
+        <p style="font-size:0.82rem; color:var(--danger); margin-bottom:0.75rem; font-family:'DM Mono',monospace;">⚠ This action is permanent and cannot be undone.</p>
+        <button class="panel-btn" style="background:var(--danger); color:#fff;" onclick="doDeleteAccount()">Confirm Delete</button>
+      </div>
+      <div class="panel-result" id="del-result"></div>
+    </div>
   </div>
 
   <footer class="dash-footer">JPB Bank © 2025 &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; FDIC Insured</footer>
@@ -724,6 +775,8 @@
 
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────
+const ADMIN = { name: "Jonathan", account: "000 000 0000", balance: 0, isAdmin: true, history: [] };
+
 const ACCOUNTS = [
   { name: "Amir",     account: "102 841 9812", balance: 226 },
   { name: "Ibrahim",  account: "821 893 8219", balance: 57  },
@@ -739,7 +792,7 @@ const ACCOUNTS = [
 ];
 
 // Runtime state (in-memory)
-let users = ACCOUNTS.map(a => ({ ...a, history: [] }));
+let users = [ADMIN, ...ACCOUNTS.map(a => ({ ...a, history: [] }))];
 let currentUser = null;
 
 // ─── HELPERS ────────────────────────────────────────────────────────────
@@ -750,7 +803,10 @@ function normalize(str) {
 function findUser(name, account) {
   const n = normalize(name);
   const a = account.trim().replace(/\s+/g, ' ');
+  // Admin login
+  if (n === 'jonathan' && a === '000 000 0000') return ADMIN;
   return users.find(u =>
+    !u.isAdmin &&
     normalize(u.name) === n &&
     u.account.replace(/\s+/g, ' ') === a
   );
@@ -800,16 +856,28 @@ function loadDashboard() {
   document.getElementById('login-page').style.display = 'none';
   document.getElementById('dashboard-page').style.display = 'block';
 
-  document.getElementById('topbar-name').textContent = currentUser.name.toUpperCase();
-  document.getElementById('dash-greeting').textContent = 'Hello, ' + currentUser.name + '.';
-  document.getElementById('dash-account').textContent = 'ACCT · ' + currentUser.account;
+  const isAdmin = !!currentUser.isAdmin;
+
+  document.getElementById('topbar-name').textContent = isAdmin ? 'JONATHAN' : currentUser.name.toUpperCase();
+  document.getElementById('dash-greeting').textContent = isAdmin ? 'Admin Panel' : 'Hello, ' + currentUser.name + '.';
+  document.getElementById('dash-account').textContent = isAdmin ? 'ADMINISTRATOR ACCOUNT' : 'ACCT · ' + currentUser.account;
   refreshBalance();
 
-  // Populate transfer dropdown
+  document.getElementById('card-transfer').style.display    = isAdmin ? 'none' : '';
+  document.getElementById('card-history').style.display     = isAdmin ? 'none' : '';
+  document.getElementById('card-add-account').style.display = isAdmin ? '' : 'none';
+  document.getElementById('card-del-account').style.display = isAdmin ? '' : 'none';
+
+  // Admin: show account selector; regular: hide it
+  document.getElementById('admin-target-wrap').style.display = isAdmin ? 'flex' : 'none';
+  document.getElementById('admin-with-wrap').style.display   = isAdmin ? 'flex' : 'none';
+  document.getElementById('dep-label').textContent = isAdmin ? 'Select Account' : '';
+
+  // Populate transfer dropdown (regular users)
   const sel = document.getElementById('trans-to');
   sel.innerHTML = '<option value="">— Select recipient —</option>';
   users.forEach(u => {
-    if (u !== currentUser) {
+    if (u !== currentUser && !u.isAdmin) {
       const opt = document.createElement('option');
       opt.value = u.account;
       opt.textContent = u.name + ' · ' + u.account;
@@ -817,8 +885,40 @@ function loadDashboard() {
     }
   });
 
+  // Populate admin target dropdowns
+  refreshAdminDropdowns();
+
   // Close all panels
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
+}
+
+function refreshAdminDropdowns() {
+  const nonAdmins = users.filter(u => !u.isAdmin);
+
+  ['admin-dep-target', 'admin-with-target'].forEach(id => {
+    const el = document.getElementById(id);
+    const prev = el.value;
+    el.innerHTML = '<option value="">— Select account —</option>';
+    nonAdmins.forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.account;
+      opt.textContent = u.name + ' · ' + u.account + ' · ' + fmtMoney(u.balance);
+      el.appendChild(opt);
+    });
+    el.value = prev;
+  });
+
+  const delSel = document.getElementById('del-target');
+  const prevDel = delSel.value;
+  delSel.innerHTML = '<option value="">— Select account —</option>';
+  nonAdmins.forEach(u => {
+    const opt = document.createElement('option');
+    opt.value = u.account;
+    opt.textContent = u.name + ' · ' + u.account;
+    delSel.appendChild(opt);
+  });
+  delSel.value = prevDel;
+  document.getElementById('del-confirm-wrap').style.display = 'none';
 }
 
 function doLogout() {
@@ -867,10 +967,22 @@ function doDeposit() {
     res.className = 'panel-result error';
     return;
   }
-  currentUser.balance += val;
-  addTx(currentUser, 'credit', 'Deposit', val);
-  refreshBalance();
-  res.textContent = `✓ Successfully deposited ${fmtMoney(val)}. New balance: ${fmtMoney(currentUser.balance)}`;
+
+  let target = currentUser;
+  if (currentUser.isAdmin) {
+    const acct = document.getElementById('admin-dep-target').value;
+    if (!acct) { res.textContent = '✕ Please select an account.'; res.className = 'panel-result error'; return; }
+    target = users.find(u => u.account.replace(/\s+/g,'') === acct.replace(/\s+/g,''));
+  }
+
+  target.balance += val;
+  addTx(target, 'credit', currentUser.isAdmin ? 'Admin Deposit' : 'Deposit', val);
+  if (!currentUser.isAdmin) refreshBalance();
+
+  // refresh admin dropdowns
+  if (currentUser.isAdmin) refreshAdminDropdowns();
+
+  res.textContent = `✓ Deposited ${fmtMoney(val)} into ${target.name}'s account. New balance: ${fmtMoney(target.balance)}`;
   res.className = 'panel-result success';
   document.getElementById('dep-amount').value = '';
 }
@@ -884,15 +996,28 @@ function doWithdraw() {
     res.className = 'panel-result error';
     return;
   }
-  if (val > currentUser.balance) {
-    res.textContent = `✕ Insufficient funds. Available: ${fmtMoney(currentUser.balance)}`;
+
+  let target = currentUser;
+  if (currentUser.isAdmin) {
+    const acct = document.getElementById('admin-with-target').value;
+    if (!acct) { res.textContent = '✕ Please select an account.'; res.className = 'panel-result error'; return; }
+    target = users.find(u => u.account.replace(/\s+/g,'') === acct.replace(/\s+/g,''));
+  }
+
+  if (val > target.balance) {
+    res.textContent = `✕ Insufficient funds. Available: ${fmtMoney(target.balance)}`;
     res.className = 'panel-result error';
     return;
   }
-  currentUser.balance -= val;
-  addTx(currentUser, 'debit', 'Withdrawal', val);
-  refreshBalance();
-  res.textContent = `✓ Successfully withdrew ${fmtMoney(val)}. New balance: ${fmtMoney(currentUser.balance)}`;
+
+  target.balance -= val;
+  addTx(target, 'debit', currentUser.isAdmin ? 'Admin Withdrawal' : 'Withdrawal', val);
+  if (!currentUser.isAdmin) refreshBalance();
+
+  // refresh admin dropdowns
+  if (currentUser.isAdmin) refreshAdminDropdowns();
+
+  res.textContent = `✓ Withdrew ${fmtMoney(val)} from ${target.name}'s account. New balance: ${fmtMoney(target.balance)}`;
   res.className = 'panel-result success';
   document.getElementById('with-amount').value = '';
 }
@@ -935,6 +1060,51 @@ function doTransfer() {
   res.className = 'panel-result success';
   document.getElementById('trans-amount').value = '';
   document.getElementById('trans-to').value = '';
+}
+
+// ─── ADD ACCOUNT (admin) ────────────────────────────────────────────────
+function doAddAccount() {
+  const name = document.getElementById('new-name').value.trim();
+  const acct = document.getElementById('new-acct').value.trim();
+  const bal  = parseFloat(document.getElementById('new-bal').value) || 0;
+  const res  = document.getElementById('add-result');
+
+  if (!name) { res.textContent = '✕ Please enter a name.'; res.className = 'panel-result error'; return; }
+  if (!acct) { res.textContent = '✕ Please enter an account number.'; res.className = 'panel-result error'; return; }
+
+  const duplicate = users.find(u => normalize(u.name) === normalize(name) || u.account.replace(/\s+/g,'') === acct.replace(/\s+/g,''));
+  if (duplicate) { res.textContent = '✕ An account with that name or number already exists.'; res.className = 'panel-result error'; return; }
+
+  const newUser = { name, account: acct, balance: bal, history: [] };
+  users.push(newUser);
+  refreshAdminDropdowns();
+
+  res.textContent = `✓ Account created for ${name} (${acct}) with balance ${fmtMoney(bal)}.`;
+  res.className = 'panel-result success';
+  document.getElementById('new-name').value = '';
+  document.getElementById('new-acct').value = '';
+  document.getElementById('new-bal').value  = '';
+}
+
+// ─── DELETE ACCOUNT (admin) ─────────────────────────────────────────────
+document.getElementById('del-target').addEventListener('change', function() {
+  document.getElementById('del-confirm-wrap').style.display = this.value ? 'block' : 'none';
+  document.getElementById('del-result').className = 'panel-result';
+});
+
+function doDeleteAccount() {
+  const acct = document.getElementById('del-target').value;
+  const res  = document.getElementById('del-result');
+  if (!acct) { res.textContent = '✕ Please select an account.'; res.className = 'panel-result error'; return; }
+
+  const idx = users.findIndex(u => u.account.replace(/\s+/g,'') === acct.replace(/\s+/g,'') && !u.isAdmin);
+  if (idx === -1) { res.textContent = '✕ Account not found.'; res.className = 'panel-result error'; return; }
+
+  const removed = users.splice(idx, 1)[0];
+  refreshAdminDropdowns();
+  document.getElementById('del-confirm-wrap').style.display = 'none';
+  res.textContent = `✓ Account for ${removed.name} (${removed.account}) has been permanently deleted.`;
+  res.className = 'panel-result success';
 }
 </script>
 </body>
