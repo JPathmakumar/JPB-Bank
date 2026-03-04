@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPB Bank — Secure Banking</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2ec;
+    --gold: #c9a84c;
+    --gold-light: #e8d49a;
+    --cream: #faf8f3;
+    --muted: #8a8680;
+    --danger: #c0392b;
+    --success: #1a7a4a;
+    --card-bg: #ffffff;
+    --border: #ddd8ce;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── BACKGROUND TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,168,76,0.06) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,168,76,0.06) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── LOGIN PAGE ─── */
+  #login-page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .login-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 440px;
+    padding: 3rem 3rem 3.5rem;
+    position: relative;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+    animation: cardRise 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  @keyframes cardRise {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .login-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+
+  .bank-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2.5rem;
+  }
+
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+    font-style: italic;
+    letter-spacing: -1px;
+  }
+
+  .bank-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+  }
+
+  .bank-name span {
+    color: var(--gold);
+  }
+
+  .login-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+  }
+
+  .login-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.45rem;
+  }
+
+  .field-wrap {
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .field-wrap input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .field-wrap input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    background: #fff;
+  }
+
+  .error-msg {
+    font-size: 0.78rem;
+    color: var(--danger);
+    margin-top: 1rem;
+    padding: 0.7rem 1rem;
+    background: rgba(192,57,43,0.06);
+    border-left: 3px solid var(--danger);
+    display: none;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .error-msg.visible { display: block; animation: shake 0.4s; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  .login-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.9rem;
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+
+  .login-btn:hover { background: #1a1a24; }
+  .login-btn:hover::after { transform: translateX(100%); }
+  .login-btn:active { transform: scale(0.99); }
+
+  .hint-text {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  /* ─── DASHBOARD ─── */
+  #dashboard-page {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--ink);
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-logo {
+    font-family: 'DM Serif Display', serif;
+    color: var(--gold);
+    font-size: 1.3rem;
+    font-style: italic;
+    letter-spacing: -0.5px;
+  }
+
+  .topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .user-chip {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.08em;
+  }
+
+  .logout-btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .logout-btn:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* MAIN CONTENT */
+  .dash-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .greeting {
+    margin-bottom: 2.5rem;
+  }
+
+  .greeting-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .greeting-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  /* BALANCE CARD */
+  .balance-card {
+    background: var(--ink);
+    color: #fff;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .balance-card::before {
+    content: 'JPB Bank';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-6deg);
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .balance-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .balance-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.75rem;
+  }
+
+  .balance-amount {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .balance-account {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.2em;
+  }
+
+  /* ACTIONS GRID */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .action-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 1.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .action-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 0;
+    background: var(--ink);
+    transition: height 0.3s cubic-bezier(0.22,1,0.36,1);
+    z-index: 0;
+  }
+
+  .action-card:hover::before { height: 100%; }
+  .action-card:hover .action-title { color: var(--gold); }
+  .action-card:hover .action-icon { color: rgba(255,255,255,0.3); }
+  .action-card:hover .action-desc { color: rgba(255,255,255,0.4); }
+
+  .action-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+    display: block;
+  }
+
+  .action-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+    letter-spacing: 0.02em;
+  }
+
+  .action-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  /* PANELS */
+  .panel {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-bottom: 1rem;
+    display: none;
+    animation: slideDown 0.3s ease both;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel.open { display: block; }
+
+  .panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .panel-field label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .panel-field input, .panel-field select {
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .panel-field input:focus, .panel-field select:focus {
+    border-color: var(--gold);
+    background: #fff;
+  }
+
+  .panel-btn {
+    padding: 0.75rem 1.75rem;
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .panel-btn:hover { background: #1a1a24; }
+
+  .panel-result {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    display: none;
+  }
+
+  .panel-result.success {
+    display: block;
+    background: rgba(26,122,74,0.08);
+    border-left: 3px solid var(--success);
+    color: var(--success);
+  }
+
+  .panel-result.error {
+    display: block;
+    background: rgba(192,57,43,0.06);
+    border-left: 3px solid var(--danger);
+    color: var(--danger);
+  }
+
+  /* HISTORY */
+  .tx-list { list-style: none; }
+
+  .tx-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeIn 0.3s ease both;
+  }
+
+  .tx-item:last-child { border-bottom: none; }
+
+  .tx-left { display: flex; align-items: center; gap: 0.75rem; }
+
+  .tx-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tx-dot.debit { background: var(--danger); }
+  .tx-dot.credit { background: var(--success); }
+
+  .tx-desc {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .tx-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .tx-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .tx-amount.debit { color: var(--danger); }
+  .tx-amount.credit { color: var(--success); }
+
+  .empty-history {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  /* FOOTER */
+  .dash-footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .actions-grid { grid-template-columns: 1fr; }
+    .login-card { padding: 2rem 1.5rem; }
+    .balance-amount { font-size: 2.5rem; }
+    .topbar { padding: 0 1.25rem; }
+    .dash-body { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="bank-logo">
+      <div class="logo-mark">J</div>
+      <div class="bank-name">JPB<span> Bank</span></div>
+    </div>
+    <h1 class="login-heading">Welcome<br>back.</h1>
+    <p class="login-sub">Sign in to access your account securely.</p>
+
+    <div class="field-wrap">
+      <label class="field-label" for="inp-name">Full Name</label>
+      <input type="text" id="inp-name" placeholder="e.g. Amir" autocomplete="off" />
+    </div>
+
+    <div class="field-wrap">
+      <label class="field-label" for="inp-account">Account Number</label>
+      <input type="text" id="inp-account" placeholder="e.g. 102 841 9812" autocomplete="off" />
+    </div>
+
+    <div id="login-error" class="error-msg">Invalid name or account number. Please try again.</div>
+
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <p class="hint-text">Enter your name and account number to continue.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="dashboard-page">
+  <header class="topbar">
+    <div class="topbar-logo">JPB Bank</div>
+    <div class="topbar-user">
+      <span class="user-chip" id="topbar-name"></span>
+      <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="dash-body">
+    <div class="greeting">
+      <div class="greeting-sub">Dashboard</div>
+      <div class="greeting-name" id="dash-greeting">Hello,</div>
+    </div>
+
+    <!-- BALANCE -->
+    <div class="balance-card">
+      <div class="balance-label">Current Balance</div>
+      <div class="balance-amount" id="dash-balance">$0.00</div>
+      <div class="balance-account" id="dash-account">ACCT ···</div>
+    </div>
+
+    <!-- ACTION CARDS -->
+    <div class="actions-grid">
+      <div class="action-card" onclick="togglePanel('panel-deposit')">
+        <span class="action-icon">＋</span>
+        <div class="action-title">Deposit</div>
+        <div class="action-desc">Add funds to your account</div>
+      </div>
+      <div class="action-card" onclick="togglePanel('panel-withdraw')">
+        <span class="action-icon">－</span>
+        <div class="action-title">Withdraw</div>
+        <div class="action-desc">Take money out</div>
+      </div>
+      <div class="action-card" onclick="togglePanel('panel-transfer')">
+        <span class="action-icon">⇄</span>
+        <div class="action-title">Transfer</div>
+        <div class="action-desc">Send to another account</div>
+      </div>
+      <div class="action-card" onclick="togglePanel('panel-history')">
+        <span class="action-icon">◷</span>
+        <div class="action-title">History</div>
+        <div class="action-desc">View transactions</div>
+      </div>
+    </div>
+
+    <!-- DEPOSIT PANEL -->
+    <div class="panel" id="panel-deposit">
+      <div class="panel-title">Deposit Funds</div>
+      <div class="panel-field">
+        <label>Amount ($)</label>
+        <input type="number" id="dep-amount" placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+      <button class="panel-btn" onclick="doDeposit()">Confirm Deposit</button>
+      <div class="panel-result" id="dep-result"></div>
+    </div>
+
+    <!-- WITHDRAW PANEL -->
+    <div class="panel" id="panel-withdraw">
+      <div class="panel-title">Withdraw Funds</div>
+      <div class="panel-field">
+        <label>Amount ($)</label>
+        <input type="number" id="with-amount" placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+      <button class="panel-btn" onclick="doWithdraw()">Confirm Withdrawal</button>
+      <div class="panel-result" id="with-result"></div>
+    </div>
+
+    <!-- TRANSFER PANEL -->
+    <div class="panel" id="panel-transfer">
+      <div class="panel-title">Transfer Funds</div>
+      <div class="panel-field">
+        <label>Recipient Account</label>
+        <select id="trans-to">
+          <option value="">— Select recipient —</option>
+        </select>
+      </div>
+      <div class="panel-field">
+        <label>Amount ($)</label>
+        <input type="number" id="trans-amount" placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+      <button class="panel-btn" onclick="doTransfer()">Send Transfer</button>
+      <div class="panel-result" id="trans-result"></div>
+    </div>
+
+    <!-- HISTORY PANEL -->
+    <div class="panel" id="panel-history">
+      <div class="panel-title">Transaction History</div>
+      <ul class="tx-list" id="tx-list"></ul>
+    </div>
+  </div>
+
+  <footer class="dash-footer">JPB Bank © 2025 &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; FDIC Insured</footer>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────
+const ACCOUNTS = [
+  { name: "Amir",     account: "102 841 9812", balance: 226 },
+  { name: "Ibrahim",  account: "821 893 8219", balance: 57  },
+  { name: "Aiden",    account: "019 832 8019", balance: 148 },
+  { name: "Aadvik",   account: "901 812 8432", balance: 181 },
+  { name: "Mavisha",  account: "923 841 0923", balance: 122 },
+  { name: "Preston",  account: "010 832 8013", balance: 77  },
+  { name: "Keionna",  account: "921 012 3818", balance: 44  },
+  { name: "Thatunika",account: "092 812 8918", balance: 176 },
+  { name: "Caleb",    account: "943 192 8321", balance: 52  },
+  { name: "Meghan",   account: "897 798 8797", balance: 36  },
+  { name: "Shriya",   account: "090 829 8281", balance: 139 },
+];
+
+// Runtime state (in-memory)
+let users = ACCOUNTS.map(a => ({ ...a, history: [] }));
+let currentUser = null;
+
+// ─── HELPERS ────────────────────────────────────────────────────────────
+function normalize(str) {
+  return str.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function findUser(name, account) {
+  const n = normalize(name);
+  const a = account.trim().replace(/\s+/g, ' ');
+  return users.find(u =>
+    normalize(u.name) === n &&
+    u.account.replace(/\s+/g, ' ') === a
+  );
+}
+
+function fmtMoney(n) {
+  return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function today() {
+  return new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function refreshBalance() {
+  document.getElementById('dash-balance').textContent = fmtMoney(currentUser.balance);
+}
+
+function addTx(user, type, desc, amount) {
+  user.history.unshift({ type, desc, amount, date: today() });
+}
+
+// ─── LOGIN ───────────────────────────────────────────────────────────────
+function doLogin() {
+  const name    = document.getElementById('inp-name').value;
+  const account = document.getElementById('inp-account').value;
+  const errEl   = document.getElementById('login-error');
+
+  const user = findUser(name, account);
+  if (!user) {
+    errEl.className = 'error-msg visible';
+    return;
+  }
+
+  errEl.className = 'error-msg';
+  currentUser = user;
+  loadDashboard();
+}
+
+document.getElementById('inp-account').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+document.getElementById('inp-name').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+function loadDashboard() {
+  document.getElementById('login-page').style.display = 'none';
+  document.getElementById('dashboard-page').style.display = 'block';
+
+  document.getElementById('topbar-name').textContent = currentUser.name.toUpperCase();
+  document.getElementById('dash-greeting').textContent = 'Hello, ' + currentUser.name + '.';
+  document.getElementById('dash-account').textContent = 'ACCT · ' + currentUser.account;
+  refreshBalance();
+
+  // Populate transfer dropdown
+  const sel = document.getElementById('trans-to');
+  sel.innerHTML = '<option value="">— Select recipient —</option>';
+  users.forEach(u => {
+    if (u !== currentUser) {
+      const opt = document.createElement('option');
+      opt.value = u.account;
+      opt.textContent = u.name + ' · ' + u.account;
+      sel.appendChild(opt);
+    }
+  });
+
+  // Close all panels
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
+}
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('inp-name').value = '';
+  document.getElementById('inp-account').value = '';
+  document.getElementById('dashboard-page').style.display = 'none';
+  document.getElementById('login-page').style.display = 'flex';
+}
+
+// ─── PANELS ─────────────────────────────────────────────────────────────
+function togglePanel(id) {
+  const panel = document.getElementById(id);
+  const isOpen = panel.classList.contains('open');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
+  if (!isOpen) panel.classList.add('open');
+
+  if (id === 'panel-history') renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('tx-list');
+  if (!currentUser.history.length) {
+    list.innerHTML = '<li class="empty-history">No transactions yet.</li>';
+    return;
+  }
+  list.innerHTML = currentUser.history.map(tx => `
+    <li class="tx-item">
+      <div class="tx-left">
+        <div class="tx-dot ${tx.type}"></div>
+        <div>
+          <div class="tx-desc">${tx.desc}</div>
+          <div class="tx-date">${tx.date}</div>
+        </div>
+      </div>
+      <div class="tx-amount ${tx.type}">${tx.type === 'debit' ? '−' : '+'}${fmtMoney(tx.amount)}</div>
+    </li>`).join('');
+}
+
+// ─── DEPOSIT ─────────────────────────────────────────────────────────────
+function doDeposit() {
+  const val = parseFloat(document.getElementById('dep-amount').value);
+  const res = document.getElementById('dep-result');
+  if (!val || val <= 0) {
+    res.textContent = '✕ Please enter a valid amount.';
+    res.className = 'panel-result error';
+    return;
+  }
+  currentUser.balance += val;
+  addTx(currentUser, 'credit', 'Deposit', val);
+  refreshBalance();
+  res.textContent = `✓ Successfully deposited ${fmtMoney(val)}. New balance: ${fmtMoney(currentUser.balance)}`;
+  res.className = 'panel-result success';
+  document.getElementById('dep-amount').value = '';
+}
+
+// ─── WITHDRAW ────────────────────────────────────────────────────────────
+function doWithdraw() {
+  const val = parseFloat(document.getElementById('with-amount').value);
+  const res = document.getElementById('with-result');
+  if (!val || val <= 0) {
+    res.textContent = '✕ Please enter a valid amount.';
+    res.className = 'panel-result error';
+    return;
+  }
+  if (val > currentUser.balance) {
+    res.textContent = `✕ Insufficient funds. Available: ${fmtMoney(currentUser.balance)}`;
+    res.className = 'panel-result error';
+    return;
+  }
+  currentUser.balance -= val;
+  addTx(currentUser, 'debit', 'Withdrawal', val);
+  refreshBalance();
+  res.textContent = `✓ Successfully withdrew ${fmtMoney(val)}. New balance: ${fmtMoney(currentUser.balance)}`;
+  res.className = 'panel-result success';
+  document.getElementById('with-amount').value = '';
+}
+
+// ─── TRANSFER ────────────────────────────────────────────────────────────
+function doTransfer() {
+  const acct = document.getElementById('trans-to').value;
+  const val  = parseFloat(document.getElementById('trans-amount').value);
+  const res  = document.getElementById('trans-result');
+
+  if (!acct) {
+    res.textContent = '✕ Please select a recipient.';
+    res.className = 'panel-result error';
+    return;
+  }
+  if (!val || val <= 0) {
+    res.textContent = '✕ Please enter a valid amount.';
+    res.className = 'panel-result error';
+    return;
+  }
+  if (val > currentUser.balance) {
+    res.textContent = `✕ Insufficient funds. Available: ${fmtMoney(currentUser.balance)}`;
+    res.className = 'panel-result error';
+    return;
+  }
+
+  const recipient = users.find(u => u.account.replace(/\s+/g,'') === acct.replace(/\s+/g,''));
+  if (!recipient) {
+    res.textContent = '✕ Recipient not found.';
+    res.className = 'panel-result error';
+    return;
+  }
+
+  currentUser.balance -= val;
+  recipient.balance   += val;
+  addTx(currentUser, 'debit',  `Transfer → ${recipient.name}`, val);
+  addTx(recipient,   'credit', `Transfer ← ${currentUser.name}`, val);
+  refreshBalance();
+  res.textContent = `✓ Transferred ${fmtMoney(val)} to ${recipient.name}. New balance: ${fmtMoney(currentUser.balance)}`;
+  res.className = 'panel-result success';
+  document.getElementById('trans-amount').value = '';
+  document.getElementById('trans-to').value = '';
+}
+</script>
+</body>
+</html>
