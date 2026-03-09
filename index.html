@@ -7,242 +7,205 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --rbc-blue: #003168;
-  --rbc-blue-mid: #00539b;
-  --rbc-blue-light: #0072ce;
-  --rbc-yellow: #ffd700;
-  --rbc-yellow-hover: #f0c800;
-  --rbc-red: #c8102e;
-  --bg: #f4f6f9;
-  --white: #ffffff;
-  --text: #1a1a1a;
-  --text-light: #5a6472;
-  --border: #d0d7e2;
-  --success: #1a7a4a;
-  --danger: #c8102e;
-  --card-shadow: 0 1px 4px rgba(0,0,0,0.10);
-  --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.13);
+  --blue: #003168; --blue-mid: #00539b; --blue-light: #0072ce;
+  --yellow: #ffd700; --yellow-h: #f0c800;
+  --bg: #f4f6f9; --white: #fff; --text: #1a1a1a; --muted: #5a6472;
+  --border: #d0d7e2; --ok: #1a7a4a; --err: #c8102e;
+  --shadow: 0 1px 4px rgba(0,0,0,0.10); --shadow-h: 0 4px 16px rgba(0,0,0,0.13);
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:15px; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;}
 
-.topbar {
-  background:var(--rbc-blue); height:60px; display:flex; align-items:center;
-  justify-content:space-between; padding:0 32px; position:sticky; top:0; z-index:200;
-  box-shadow:0 2px 6px rgba(0,0,0,0.18);
-}
-.topbar-left { display:flex; align-items:center; gap:14px; }
-.logo-shield {
-  width:38px; height:38px; background:var(--rbc-yellow); border-radius:4px;
-  display:flex; align-items:center; justify-content:center;
-  font-weight:700; font-size:0.9rem; color:var(--rbc-blue); flex-shrink:0;
-}
-.brand { color:#fff; font-size:1.15rem; font-weight:700; }
-.brand span { color:var(--rbc-yellow); }
-.topbar-nav { display:flex; gap:2px; margin-left:8px; }
-.tnav {
-  background:transparent; border:none; color:rgba(255,255,255,0.72);
-  font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:500;
-  padding:6px 14px; border-radius:4px; cursor:pointer; transition:all 0.15s;
-}
-.tnav:hover,.tnav.active { background:rgba(255,255,255,0.13); color:#fff; }
-.topbar-right { display:flex; align-items:center; gap:12px; }
-.tu-name { color:rgba(255,255,255,0.82); font-size:0.82rem; font-weight:500; }
-.signout-btn {
-  background:var(--rbc-yellow); color:var(--rbc-blue); border:none;
-  font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700;
-  padding:7px 16px; border-radius:4px; cursor:pointer; transition:background 0.15s;
-}
-.signout-btn:hover { background:var(--rbc-yellow-hover); }
+/* TOPBAR */
+.topbar{background:var(--blue);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.tl{display:flex;align-items:center;gap:12px;}
+.shield{width:36px;height:36px;background:var(--yellow);border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:var(--blue);flex-shrink:0;}
+.brand{color:#fff;font-size:1.1rem;font-weight:700;}.brand span{color:var(--yellow);}
+.tnav-wrap{display:flex;gap:2px;margin-left:6px;}
+.tnav{background:transparent;border:none;color:rgba(255,255,255,0.7);font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;padding:6px 12px;border-radius:4px;cursor:pointer;transition:all 0.15s;}
+.tnav:hover,.tnav.active{background:rgba(255,255,255,0.13);color:#fff;}
+.tr{display:flex;align-items:center;gap:10px;}
+.tu{color:rgba(255,255,255,0.8);font-size:0.8rem;font-weight:500;}
+.so-btn{background:var(--yellow);color:var(--blue);border:none;font-family:'Inter',sans-serif;font-size:0.77rem;font-weight:700;padding:7px 14px;border-radius:4px;cursor:pointer;transition:background 0.15s;}
+.so-btn:hover{background:var(--yellow-h);}
 
-.page {
-  display:none;
-  opacity:0;
-  transform:translateY(18px);
-  transition:opacity 0.38s cubic-bezier(0.22,1,0.36,1), transform 0.38s cubic-bezier(0.22,1,0.36,1);
-}
-.page.active {
-  display:block;
-  opacity:0;
-  transform:translateY(18px);
-}
-.page.visible {
-  opacity:1;
-  transform:translateY(0);
-}
-.page.exit {
-  opacity:0;
-  transform:translateY(-14px);
-  transition:opacity 0.22s ease, transform 0.22s ease;
-}
+/* PAGES */
+.page{display:none;opacity:0;transform:translateY(18px);transition:opacity 0.38s cubic-bezier(0.22,1,0.36,1),transform 0.38s cubic-bezier(0.22,1,0.36,1);}
+.page.active{display:block;opacity:0;transform:translateY(18px);}
+.page.visible{opacity:1;transform:translateY(0);}
+.page.exit{opacity:0;transform:translateY(-14px);transition:opacity 0.22s ease,transform 0.22s ease;}
 
 /* LOGIN */
-#login-page {
-  min-height:100vh;
-  background:linear-gradient(135deg, var(--rbc-blue) 0%, var(--rbc-blue-mid) 55%, #005fad 100%);
-  display:flex; flex-direction:column;
-}
-.lt { padding:18px 40px; display:flex; align-items:center; gap:12px; }
-.lt-shield { width:42px; height:42px; background:var(--rbc-yellow); border-radius:4px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1rem; color:var(--rbc-blue); }
-.lt-brand { color:#fff; font-size:1.2rem; font-weight:700; }
-.lt-brand span { color:var(--rbc-yellow); }
-.login-body { flex:1; display:flex; align-items:center; justify-content:center; padding:40px 20px; }
-.login-card {
-  background:#fff; border-radius:8px; width:100%; max-width:420px;
-  padding:40px 40px 36px; box-shadow:0 8px 40px rgba(0,0,0,0.22);
-  animation:cardUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
-}
-@keyframes cardUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-.lch { margin-bottom:24px; }
-.lch h2 { font-size:1.45rem; font-weight:700; color:var(--rbc-blue); margin-bottom:4px; }
-.lch p { font-size:0.83rem; color:var(--text-light); }
-.role-tabs { display:flex; margin-bottom:22px; border-radius:6px; overflow:hidden; border:1.5px solid var(--border); }
-.role-tab {
-  flex:1; padding:9px; text-align:center; font-size:0.8rem; font-weight:600;
-  cursor:pointer; background:#f8f9fb; color:var(--text-light); transition:all 0.15s;
-  border:none; font-family:'Inter',sans-serif;
-}
-.role-tab.active { background:var(--rbc-blue); color:#fff; }
-.lf { margin-bottom:16px; }
-.lf label { display:block; font-size:0.78rem; font-weight:600; color:var(--text); margin-bottom:6px; }
-.lf input {
-  width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:5px;
-  font-family:'Inter',sans-serif; font-size:0.92rem; color:var(--text); outline:none; transition:border-color 0.15s;
-}
-.lf input:focus { border-color:var(--rbc-blue-light); box-shadow:0 0 0 3px rgba(0,114,206,0.12); }
-.lerr {
-  background:#fff0f2; border:1px solid #f7b3bc; border-radius:5px;
-  padding:10px 13px; font-size:0.8rem; color:var(--danger); margin-bottom:14px; display:none;
-}
-.lerr.show { display:block; animation:shake 0.35s; }
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-.login-submit {
-  width:100%; padding:11px; background:var(--rbc-blue); color:#fff;
-  font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:700;
-  border:none; border-radius:5px; cursor:pointer; transition:background 0.15s; margin-top:4px;
-}
-.login-submit:hover { background:var(--rbc-blue-mid); }
+#login-page{min-height:100vh;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-mid) 55%,#005fad 100%);display:flex;flex-direction:column;}
+.lt{padding:18px 36px;display:flex;align-items:center;gap:10px;}
+.lt-shield{width:40px;height:40px;background:var(--yellow);border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.95rem;color:var(--blue);}
+.lt-brand{color:#fff;font-size:1.15rem;font-weight:700;}.lt-brand span{color:var(--yellow);}
+.lb{flex:1;display:flex;align-items:center;justify-content:center;padding:36px 20px;}
+.lcard{background:#fff;border-radius:8px;width:100%;max-width:415px;padding:38px 38px 34px;box-shadow:0 8px 40px rgba(0,0,0,0.22);animation:cardUp 0.5s cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes cardUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.lch{margin-bottom:22px;}.lch h2{font-size:1.4rem;font-weight:700;color:var(--blue);margin-bottom:3px;}.lch p{font-size:0.82rem;color:var(--muted);}
+.rtabs{display:flex;margin-bottom:20px;border-radius:6px;overflow:hidden;border:1.5px solid var(--border);}
+.rtab{flex:1;padding:9px;text-align:center;font-size:0.79rem;font-weight:600;cursor:pointer;background:#f8f9fb;color:var(--muted);transition:all 0.15s;border:none;font-family:'Inter',sans-serif;}
+.rtab.active{background:var(--blue);color:#fff;}
+.lf{margin-bottom:15px;}.lf label{display:block;font-size:0.77rem;font-weight:600;color:var(--text);margin-bottom:5px;}
+.lf input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:5px;font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--text);outline:none;transition:border-color 0.15s;}
+.lf input:focus{border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(0,114,206,0.12);}
+.lerr{background:#fff0f2;border:1px solid #f7b3bc;border-radius:5px;padding:10px 12px;font-size:0.79rem;color:var(--err);margin-bottom:13px;display:none;}
+.lerr.show{display:block;animation:shake 0.35s;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.lbtn{width:100%;padding:11px;background:var(--blue);color:#fff;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;border:none;border-radius:5px;cursor:pointer;transition:background 0.15s;margin-top:3px;}
+.lbtn:hover{background:var(--blue-mid);}
 
 /* MAIN */
-#main-page { min-height:calc(100vh - 60px); }
-.wrap { max-width:1100px; margin:0 auto; padding:28px 24px; }
+#main-page{min-height:calc(100vh - 60px);}
+.wrap{max-width:1100px;margin:0 auto;padding:26px 22px;}
 
-.banner {
-  background:linear-gradient(90deg, var(--rbc-blue) 0%, var(--rbc-blue-mid) 100%);
-  border-radius:8px; padding:22px 28px; margin-bottom:22px;
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
-}
-.banner h2 { color:#fff; font-size:1.25rem; font-weight:700; margin-bottom:3px; }
-.banner p { color:rgba(255,255,255,0.68); font-size:0.82rem; }
-.badge {
-  border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:5px 14px;
-  font-size:0.73rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-}
+/* BANNER */
+.banner{background:linear-gradient(90deg,var(--blue) 0%,var(--blue-mid) 100%);border-radius:8px;padding:22px 26px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.banner h2{color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:3px;}.banner p{color:rgba(255,255,255,0.65);font-size:0.8rem;}
+.badge{border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 13px;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
 
-.acc-card {
-  background:#fff; border-radius:8px; padding:22px 24px;
-  box-shadow:var(--card-shadow); margin-bottom:22px; border-left:4px solid var(--rbc-blue);
-}
-.acc-top { display:flex; align-items:flex-start; justify-content:space-between; }
-.acc-type { font-size:0.71rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-light); margin-bottom:4px; }
-.acc-name { font-size:1rem; font-weight:700; color:var(--rbc-blue); }
-.acc-num { font-size:0.78rem; color:var(--text-light); margin-top:3px; font-family:monospace; letter-spacing:0.05em; }
-.acc-bal-label { font-size:0.72rem; color:var(--text-light); text-align:right; }
-.acc-bal { font-size:1.9rem; font-weight:700; color:var(--rbc-blue); text-align:right; transition:all 0.3s; }
+/* STATS ROW (admin) */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.stat-card{background:#fff;border-radius:8px;padding:18px 20px;box-shadow:var(--shadow);border-top:3px solid var(--blue);}
+.stat-label{font-size:0.71rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;}
+.stat-val{font-size:1.6rem;font-weight:700;color:var(--blue);}
+.stat-sub{font-size:0.75rem;color:var(--muted);margin-top:3px;}
 
-.sec-title { font-size:0.92rem; font-weight:700; color:var(--rbc-blue); margin-bottom:13px; padding-bottom:8px; border-bottom:2px solid var(--border); }
+/* ACCOUNT CARD */
+.acc-card{background:#fff;border-radius:8px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:20px;border-left:4px solid var(--blue);}
+.acc-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.acc-type{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:3px;}
+.acc-name{font-size:0.97rem;font-weight:700;color:var(--blue);}
+.acc-num{font-size:0.77rem;color:var(--muted);margin-top:2px;font-family:monospace;letter-spacing:0.05em;}
+.acc-bal-label{font-size:0.7rem;color:var(--muted);text-align:right;}
+.acc-bal{font-size:1.85rem;font-weight:700;color:var(--blue);text-align:right;transition:all 0.3s;}
 
-.qas { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
-.qab {
-  display:flex; align-items:center; gap:8px; background:#fff; border:1.5px solid var(--border);
-  border-radius:7px; padding:11px 17px; cursor:pointer; transition:all 0.15s;
-  font-family:'Inter',sans-serif; font-size:0.84rem; font-weight:600; color:var(--rbc-blue);
-  box-shadow:var(--card-shadow);
-}
-.qab:hover { border-color:var(--rbc-blue-light); box-shadow:var(--card-shadow-hover); background:#f0f5fc; }
-.qab.active { border-color:var(--rbc-blue); background:#e8f0fa; }
-.qab.red { color:var(--danger); }
-.qab.red:hover { border-color:var(--danger); background:#fff0f2; }
-.qab.red.active { border-color:var(--danger); background:#fff0f2; }
+/* QUICK ACTIONS */
+.sec-title{font-size:0.92rem;font-weight:700;color:var(--blue);margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--border);}
+.qas{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px;}
+.qab{display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:10px 16px;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:600;color:var(--blue);box-shadow:var(--shadow);}
+.qab:hover{border-color:var(--blue-light);box-shadow:var(--shadow-h);background:#f0f5fc;}
+.qab.active{border-color:var(--blue);background:#e8f0fa;}
+.qab.red{color:var(--err);}.qab.red:hover{border-color:var(--err);background:#fff0f2;}.qab.red.active{border-color:var(--err);background:#fff0f2;}
+.qab.grn{color:var(--ok);}.qab.grn:hover{border-color:var(--ok);background:#edf7f1;}.qab.grn.active{border-color:var(--ok);background:#edf7f1;}
 
-.panel {
-  background:#fff; border-radius:8px; padding:22px 24px; box-shadow:var(--card-shadow);
-  margin-bottom:18px; display:none; border-top:3px solid var(--rbc-blue);
-  animation:pIn 0.22s ease both;
-}
-.panel.redtop { border-top-color:var(--danger); }
-.panel.open { display:block; }
-@keyframes pIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
-.panel h3 { font-size:0.97rem; font-weight:700; color:var(--rbc-blue); margin-bottom:16px; }
-.panel.redtop h3 { color:var(--danger); }
-.pf { margin-bottom:13px; }
-.pf label { display:block; font-size:0.75rem; font-weight:600; color:var(--text); margin-bottom:5px; }
-.pf input,.pf select {
-  width:100%; padding:9px 12px; border:1.5px solid var(--border); border-radius:5px;
-  font-family:'Inter',sans-serif; font-size:0.88rem; color:var(--text); outline:none; transition:border-color 0.15s; background:#fff;
-}
-.pf input:focus,.pf select:focus { border-color:var(--rbc-blue-light); box-shadow:0 0 0 3px rgba(0,114,206,0.1); }
-.prow { display:flex; gap:12px; }
-.prow .pf { flex:1; }
-.pacts { display:flex; gap:10px; margin-top:8px; }
-.pb { padding:9px 22px; border-radius:5px; border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:0.83rem; font-weight:700; transition:all 0.15s; }
-.pb-blue { background:var(--rbc-blue); color:#fff; }
-.pb-blue:hover { background:var(--rbc-blue-mid); }
-.pb-red { background:var(--danger); color:#fff; }
-.pb-red:hover { background:#a00d24; }
-.pb-ghost { background:#f0f3f7; color:var(--text); border:1.5px solid var(--border); }
-.pb-ghost:hover { background:#e2e8f0; }
-.pmsg { margin-top:11px; padding:10px 13px; border-radius:5px; font-size:0.81rem; font-weight:500; display:none; }
-.pmsg.ok { display:block; background:#edf7f1; border:1px solid #a3d9b8; color:var(--success); }
-.pmsg.err { display:block; background:#fff0f2; border:1px solid #f7b3bc; color:var(--danger); }
-.warnbox { background:#fff8e1; border:1px solid #ffe082; border-radius:5px; padding:10px 13px; font-size:0.8rem; color:#7a5c00; margin-bottom:12px; display:none; }
-.warnbox.show { display:block; }
+/* PANELS */
+.panel{background:#fff;border-radius:8px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;display:none;border-top:3px solid var(--blue);animation:pIn 0.22s ease both;}
+.panel.redtop{border-top-color:var(--err);}
+.panel.open{display:block;}
+@keyframes pIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.panel h3{font-size:0.95rem;font-weight:700;color:var(--blue);margin-bottom:15px;}
+.panel.redtop h3{color:var(--err);}
+.pf{margin-bottom:12px;}.pf label{display:block;font-size:0.74rem;font-weight:600;color:var(--text);margin-bottom:4px;}
+.pf input,.pf select,.pf textarea{width:100%;padding:9px 11px;border:1.5px solid var(--border);border-radius:5px;font-family:'Inter',sans-serif;font-size:0.86rem;color:var(--text);outline:none;transition:border-color 0.15s;background:#fff;}
+.pf input:focus,.pf select:focus,.pf textarea:focus{border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(0,114,206,0.1);}
+.pf textarea{resize:vertical;min-height:70px;}
+.prow{display:flex;gap:11px;}.prow .pf{flex:1;}
+.pacts{display:flex;gap:9px;margin-top:7px;align-items:center;}
+.pb{padding:9px 20px;border-radius:5px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:700;transition:all 0.15s;}
+.pb-blue{background:var(--blue);color:#fff;}.pb-blue:hover{background:var(--blue-mid);}
+.pb-red{background:var(--err);color:#fff;}.pb-red:hover{background:#a00d24;}
+.pb-grn{background:var(--ok);color:#fff;}.pb-grn:hover{background:#155e39;}
+.pb-ghost{background:#f0f3f7;color:var(--text);border:1.5px solid var(--border);}.pb-ghost:hover{background:#e2e8f0;}
+.pmsg{margin-top:10px;padding:9px 12px;border-radius:5px;font-size:0.8rem;font-weight:500;display:none;}
+.pmsg.ok{display:block;background:#edf7f1;border:1px solid #a3d9b8;color:var(--ok);}
+.pmsg.err{display:block;background:#fff0f2;border:1px solid #f7b3bc;color:var(--err);}
+.warnbox{background:#fff8e1;border:1px solid #ffe082;border-radius:5px;padding:10px 12px;font-size:0.79rem;color:#7a5c00;margin-bottom:11px;display:none;}
+.warnbox.show{display:block;}
 
-.txt { width:100%; border-collapse:collapse; font-size:0.84rem; }
-.txt th { text-align:left; padding:8px 12px; font-size:0.71rem; font-weight:700; color:var(--text-light); text-transform:uppercase; letter-spacing:0.07em; border-bottom:2px solid var(--border); }
-.txt td { padding:11px 12px; border-bottom:1px solid #eef0f4; }
-.txt tr:last-child td { border-bottom:none; }
-.txt tr:hover td { background:#f7f9fc; }
-.tbadge { display:inline-flex; align-items:center; padding:3px 9px; border-radius:20px; font-size:0.71rem; font-weight:700; }
-.tbadge.credit { background:#edf7f1; color:var(--success); }
-.tbadge.debit { background:#fff0f2; color:var(--danger); }
-.tamt.credit { color:var(--success); font-weight:700; }
-.tamt.debit { color:var(--danger); font-weight:700; }
-.tempty { text-align:center; padding:32px; color:var(--text-light); font-size:0.85rem; }
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:0.82rem;}
+.tbl th{text-align:left;padding:8px 11px;font-size:0.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;border-bottom:2px solid var(--border);}
+.tbl td{padding:10px 11px;border-bottom:1px solid #eef0f4;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:#f7f9fc;}
+.tbadge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:0.7rem;font-weight:700;}
+.tbadge.credit{background:#edf7f1;color:var(--ok);}
+.tbadge.debit{background:#fff0f2;color:var(--err);}
+.tamt{font-weight:700;}.tamt.credit{color:var(--ok);}.tamt.debit{color:var(--err);}
+.tempty{text-align:center;padding:28px;color:var(--muted);font-size:0.83rem;}
+.drbtn{background:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;font-size:0.73rem;color:var(--err);cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:all 0.15s;}
+.drbtn:hover{background:var(--err);color:#fff;border-color:var(--err);}
+.ebtn{background:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;font-size:0.73rem;color:var(--blue);cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:all 0.15s;margin-right:4px;}
+.ebtn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
 
-.atbl { width:100%; border-collapse:collapse; font-size:0.83rem; }
-.atbl th { padding:8px 12px; font-size:0.71rem; font-weight:700; color:var(--text-light); text-transform:uppercase; letter-spacing:0.07em; border-bottom:2px solid var(--border); text-align:left; }
-.atbl td { padding:10px 12px; border-bottom:1px solid #eef0f4; }
-.atbl tr:hover td { background:#f7f9fc; }
-.drbtn { background:none; border:1px solid var(--border); border-radius:4px; padding:4px 10px; font-size:0.74rem; color:var(--danger); cursor:pointer; font-family:'Inter',sans-serif; font-weight:600; transition:all 0.15s; }
-.drbtn:hover { background:var(--danger); color:#fff; border-color:var(--danger); }
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal{background:#fff;border-radius:8px;width:100%;max-width:480px;padding:28px;box-shadow:0 12px 48px rgba(0,0,0,0.22);animation:pIn 0.2s ease both;}
+.modal h3{font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.modal-actions{display:flex;gap:9px;margin-top:16px;justify-content:flex-end;}
 
-.loading-overlay { position:fixed; inset:0; background:rgba(0,49,104,0.2); z-index:999; display:none; align-items:center; justify-content:center; }
-.loading-overlay.show { display:flex; }
-.lbox { background:#fff; border-radius:8px; padding:28px 36px; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,0.18); }
-.lbox p { color:var(--rbc-blue); font-weight:600; font-size:0.9rem; margin-top:12px; }
-@keyframes spin { to{transform:rotate(360deg)} }
+/* ACTIVITY LOG */
+.log-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #eef0f4;}
+.log-item:last-child{border-bottom:none;}
+.log-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.log-dot.info{background:var(--blue-light);}
+.log-dot.warn{background:#f59e0b;}
+.log-dot.danger{background:var(--err);}
+.log-dot.ok{background:var(--ok);}
+.log-text{font-size:0.8rem;color:var(--text);}
+.log-time{font-size:0.72rem;color:var(--muted);margin-top:2px;}
 
-.mfooter { background:#fff; border-top:1px solid var(--border); padding:14px 32px; text-align:center; color:var(--text-light); font-size:0.74rem; margin-top:32px; }
+/* FREEZE BADGE */
+.frozen-badge{display:inline-block;background:#fff0f2;color:var(--err);border:1px solid #f7b3bc;border-radius:4px;padding:2px 7px;font-size:0.68rem;font-weight:700;margin-left:6px;vertical-align:middle;}
+
+/* LOADING */
+.loading-overlay{position:fixed;inset:0;background:rgba(0,49,104,0.18);z-index:999;display:none;align-items:center;justify-content:center;}
+.loading-overlay.show{display:flex;}
+.lbox{background:#fff;border-radius:8px;padding:26px 34px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.18);}
+.lbox p{color:var(--blue);font-weight:600;font-size:0.88rem;margin-top:11px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.mfooter{background:#fff;border-top:1px solid var(--border);padding:13px 28px;text-align:center;color:var(--muted);font-size:0.73rem;margin-top:28px;}
 
 @media(max-width:640px){
-  .topbar{padding:0 14px;} .topbar-nav{display:none;}
-  .login-card{padding:26px 18px;} .wrap{padding:14px 10px;}
-  .qas{gap:7px;} .qab{padding:9px 12px;font-size:0.79rem;}
-  .prow{flex-direction:column;gap:0;} .acc-bal{font-size:1.45rem;}
-  .banner{padding:16px 18px;}
+  .topbar{padding:0 12px;}.tnav-wrap{display:none;}
+  .lcard{padding:24px 18px;}.wrap{padding:13px 10px;}
+  .qas{gap:7px;}.qab{padding:9px 11px;font-size:0.78rem;}
+  .prow{flex-direction:column;gap:0;}.acc-bal{font-size:1.4rem;}
+  .banner{padding:16px 16px;}.stats-row{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
 <body>
 
+<!-- LOADING -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="lbox">
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="animation:spin 0.9s linear infinite;display:block;margin:0 auto">
+    <svg width="34" height="34" viewBox="0 0 36 36" fill="none" style="animation:spin 0.9s linear infinite;display:block;margin:0 auto">
       <circle cx="18" cy="18" r="15" stroke="#d0d7e2" stroke-width="3"/>
       <path d="M18 3 A15 15 0 0 1 33 18" stroke="#003168" stroke-width="3" stroke-linecap="round"/>
     </svg>
     <p id="ltxt">Loading...</p>
+  </div>
+</div>
+
+<!-- EDIT ACCOUNT MODAL -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <h3>Edit Account</h3>
+    <input type="hidden" id="edit-id" />
+    <div class="prow">
+      <div class="pf"><label>Full Name</label><input type="text" id="edit-name" /></div>
+      <div class="pf"><label>Account Number</label><input type="text" id="edit-acct" /></div>
+    </div>
+    <div class="prow">
+      <div class="pf"><label>Balance ($)</label><input type="number" id="edit-bal" step="0.01" /></div>
+      <div class="pf"><label>Role</label>
+        <select id="edit-role">
+          <option value="client">Client</option>
+          <option value="admin">Admin / Staff</option>
+        </select>
+      </div>
+    </div>
+    <div class="pf"><label>Password (leave blank to keep current)</label><input type="password" id="edit-pw" placeholder="New password (optional)" /></div>
+    <div class="modal-actions">
+      <button class="pb pb-ghost" onclick="closeModal()">Cancel</button>
+      <button class="pb pb-blue" onclick="saveEdit()">Save Changes</button>
+    </div>
+    <div class="pmsg" id="edit-msg"></div>
   </div>
 </div>
 
@@ -252,58 +215,18 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
     <div class="lt-shield">JPB</div>
     <div class="lt-brand">JPB <span>Bank</span></div>
   </div>
-  <div class="login-body">
-    <div class="login-card">
-      <div class="lch">
-        <h2>Sign In</h2>
-        <p>Access your JPB Bank account securely</p>
+  <div class="lb">
+    <div class="lcard">
+      <div class="lch"><h2>Sign In</h2><p>Access your JPB Bank account securely</p></div>
+      <div class="rtabs">
+        <button class="rtab active" id="tab-client" onclick="setRole('client')">Client</button>
+        <button class="rtab" id="tab-admin" onclick="setRole('admin')">Admin / Staff</button>
       </div>
-      <div class="role-tabs">
-        <button class="role-tab active" id="tab-client" onclick="setRole('client')">Client</button>
-        <button class="role-tab" id="tab-admin" onclick="setRole('admin')">Admin / Staff</button>
-      </div>
-      <div class="lf">
-        <label>Full Name</label>
-        <input type="text" id="inp-name" placeholder="e.g. Amir" autocomplete="off" />
-      </div>
-      <div class="lf" id="acct-wrap">
-        <label>Card / Account Number</label>
-        <input type="text" id="inp-acct" placeholder="e.g. 102 841 9812" autocomplete="off" />
-      </div>
-      <div class="lf" id="pass-wrap" style="display:none;">
-        <label>Password</label>
-        <input type="password" id="inp-pass" placeholder="Enter your password" autocomplete="off" />
-      </div>
+      <div class="lf"><label>Full Name</label><input type="text" id="inp-name" placeholder="e.g. Amir" autocomplete="off" /></div>
+      <div class="lf" id="acct-wrap"><label>Account Number</label><input type="text" id="inp-acct" placeholder="e.g. 102 841 9812" autocomplete="off" /></div>
+      <div class="lf" id="pass-wrap" style="display:none;"><label>Password</label><input type="password" id="inp-pass" placeholder="Enter your password" autocomplete="off" /></div>
       <div class="lerr" id="lerr">Invalid credentials. Please try again.</div>
-      <button class="login-submit" onclick="doLogin()">Sign In</button>
-
-      <div id="setup-info" style="display:none;margin-top:20px;padding:16px;background:#f0f5fc;border-radius:6px;font-size:0.77rem;color:#003168;border:1px solid #c2d4ee;line-height:1.7;">
-        <strong>⚙ Supabase Setup Required:</strong><br><br>
-        1. Go to <a href="https://supabase.com" target="_blank" style="color:#0072ce">supabase.com</a> → New project<br>
-        2. Go to <strong>SQL Editor</strong> and run:<br>
-        <code style="display:block;margin:8px 0;padding:10px;background:#fff;border-radius:4px;font-size:0.72rem;white-space:pre;overflow-x:auto;border:1px solid #d0d7e2;">CREATE TABLE accounts (
-  id bigserial PRIMARY KEY,
-  name text NOT NULL,
-  account_number text,
-  balance numeric DEFAULT 0,
-  role text DEFAULT 'client',
-  password text,
-  created_at timestamptz DEFAULT now()
-);
-CREATE TABLE transactions (
-  id bigserial PRIMARY KEY,
-  account_id bigint REFERENCES accounts(id) ON DELETE CASCADE,
-  type text, description text,
-  amount numeric,
-  created_at timestamptz DEFAULT now()
-);
-ALTER TABLE accounts ENABLE ROW LEVEL SECURITY;
-ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "open" ON accounts FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "open" ON transactions FOR ALL USING (true) WITH CHECK (true);</code>
-        3. Copy <strong>Project URL</strong> + <strong>anon public key</strong> from Settings → API<br>
-        4. Paste them into <code>SUPABASE_URL</code> and <code>SUPABASE_KEY</code> at the top of this file
-      </div>
+      <button class="lbtn" onclick="doLogin()">Sign In</button>
     </div>
   </div>
 </div>
@@ -311,31 +234,55 @@ CREATE POLICY "open" ON transactions FOR ALL USING (true) WITH CHECK (true);</co
 <!-- ══════ MAIN ══════ -->
 <div id="main-page" class="page">
   <header class="topbar">
-    <div class="topbar-left">
-      <div class="logo-shield">JPB</div>
+    <div class="tl">
+      <div class="shield">JPB</div>
       <div class="brand">JPB <span>Bank</span></div>
-      <nav class="topbar-nav">
-        <button class="tnav active" onclick="goSection('overview',this)">Overview</button>
-        <button class="tnav" onclick="goSection('history',this)">Transactions</button>
-        <button class="tnav" id="tnav-manage" style="display:none;" onclick="goSection('manage',this)">Manage Accounts</button>
+      <nav class="tnav-wrap">
+        <button class="tnav active" onclick="goSec('overview',this)">Overview</button>
+        <button class="tnav" onclick="goSec('history',this)" id="tnav-history">Transactions</button>
+        <button class="tnav" id="tnav-manage" style="display:none;" onclick="goSec('manage',this)">Manage Accounts</button>
+        <button class="tnav" id="tnav-reports" style="display:none;" onclick="goSec('reports',this)">Reports</button>
+        <button class="tnav" id="tnav-messages" style="display:none;" onclick="goSec('messages',this)">Messages</button>
+        <button class="tnav" onclick="goSec('password',this)">Settings</button>
       </nav>
     </div>
-    <div class="topbar-right">
-      <span class="tu-name" id="tu-name"></span>
-      <button class="signout-btn" onclick="doLogout()">Sign Out</button>
+    <div class="tr">
+      <span class="tu" id="tu-name"></span>
+      <button class="so-btn" onclick="doLogout()">Sign Out</button>
     </div>
   </header>
 
   <div class="wrap">
 
-    <!-- OVERVIEW -->
+    <!-- ── OVERVIEW ── -->
     <div id="sec-overview">
       <div class="banner">
-        <div>
-          <h2 id="w-name">Welcome</h2>
-          <p id="w-date"></p>
-        </div>
+        <div><h2 id="w-name">Welcome</h2><p id="w-date"></p></div>
         <div class="badge" id="w-badge">Client</div>
+      </div>
+
+      <!-- Admin stats -->
+      <div class="stats-row" id="admin-stats" style="display:none;">
+        <div class="stat-card">
+          <div class="stat-label">Total Clients</div>
+          <div class="stat-val" id="stat-clients">—</div>
+          <div class="stat-sub">Active accounts</div>
+        </div>
+        <div class="stat-card" style="border-top-color:#f59e0b;">
+          <div class="stat-label">Total Deposits</div>
+          <div class="stat-val" id="stat-deposits" style="font-size:1.2rem;">—</div>
+          <div class="stat-sub">All client balances</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--ok);">
+          <div class="stat-label">Admins</div>
+          <div class="stat-val" id="stat-admins">—</div>
+          <div class="stat-sub">Staff accounts</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--err);">
+          <div class="stat-label">Frozen Accounts</div>
+          <div class="stat-val" id="stat-frozen">—</div>
+          <div class="stat-sub">Restricted access</div>
+        </div>
       </div>
 
       <div class="acc-card">
@@ -355,91 +302,112 @@ CREATE POLICY "open" ON transactions FOR ALL USING (true) WITH CHECK (true);</co
       <div class="sec-title">Quick Actions</div>
       <div class="qas">
         <button class="qab" id="qa-dep" onclick="tog('p-dep','qa-dep')">
-          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Deposit
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Deposit
         </button>
         <button class="qab" id="qa-with" onclick="tog('p-with','qa-with')">
-          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/></svg>Withdraw
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/></svg>Withdraw
         </button>
         <button class="qab" id="qa-trans" onclick="tog('p-trans','qa-trans')">
-          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4M16 17H4m0 0l4 4m-4-4l4-4"/></svg>Transfer
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4M16 17H4m0 0l4 4m-4-4l4-4"/></svg>Transfer
+        </button>
+        <button class="qab grn" id="qa-freeze" onclick="tog('p-freeze','qa-freeze')" style="display:none;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>Freeze / Unfreeze
+        </button>
+        <button class="qab" id="qa-adjust" onclick="tog('p-adjust','qa-adjust')" style="display:none;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>Adjust Balance
+        </button>
+        <button class="qab" id="qa-note" onclick="tog('p-note','qa-note')" style="display:none;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>Send Message
         </button>
       </div>
 
-      <!-- DEPOSIT PANEL -->
+      <!-- DEPOSIT -->
       <div class="panel" id="p-dep">
         <h3>Deposit Funds</h3>
-        <div class="pf" id="dep-tgt-wrap" style="display:none;">
-          <label>Target Account</label>
-          <select id="dep-tgt"></select>
-        </div>
-        <div class="pf">
-          <label>Amount (CAD $)</label>
-          <input type="number" id="dep-amt" placeholder="0.00" min="0.01" step="0.01" />
-        </div>
-        <div class="pacts">
-          <button class="pb pb-blue" onclick="doDeposit()">Confirm Deposit</button>
-          <button class="pb pb-ghost" onclick="closeAll()">Cancel</button>
-        </div>
+        <div class="pf" id="dep-tgt-wrap" style="display:none;"><label>Target Account</label><select id="dep-tgt"></select></div>
+        <div class="pf"><label>Amount (CAD $)</label><input type="number" id="dep-amt" placeholder="0.00" min="0.01" step="0.01" /></div>
+        <div class="pacts"><button class="pb pb-blue" onclick="doDeposit()">Confirm Deposit</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
         <div class="pmsg" id="dep-msg"></div>
       </div>
 
-      <!-- WITHDRAW PANEL -->
+      <!-- WITHDRAW -->
       <div class="panel" id="p-with">
         <h3>Withdraw Funds</h3>
-        <div class="pf" id="with-tgt-wrap" style="display:none;">
-          <label>Target Account</label>
-          <select id="with-tgt"></select>
-        </div>
-        <div class="pf">
-          <label>Amount (CAD $)</label>
-          <input type="number" id="with-amt" placeholder="0.00" min="0.01" step="0.01" />
-        </div>
-        <div class="pacts">
-          <button class="pb pb-blue" onclick="doWithdraw()">Confirm Withdrawal</button>
-          <button class="pb pb-ghost" onclick="closeAll()">Cancel</button>
-        </div>
+        <div class="pf" id="with-tgt-wrap" style="display:none;"><label>Target Account</label><select id="with-tgt"></select></div>
+        <div class="pf"><label>Amount (CAD $)</label><input type="number" id="with-amt" placeholder="0.00" min="0.01" step="0.01" /></div>
+        <div class="pacts"><button class="pb pb-blue" onclick="doWithdraw()">Confirm Withdrawal</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
         <div class="pmsg" id="with-msg"></div>
       </div>
 
-      <!-- TRANSFER PANEL -->
+      <!-- TRANSFER -->
       <div class="panel" id="p-trans">
         <h3>Transfer Funds</h3>
-        <div class="pf">
-          <label>Recipient Account</label>
-          <select id="trans-tgt"><option value="">— Select recipient —</option></select>
-        </div>
-        <div class="pf">
-          <label>Amount (CAD $)</label>
-          <input type="number" id="trans-amt" placeholder="0.00" min="0.01" step="0.01" />
-        </div>
-        <div class="pacts">
-          <button class="pb pb-blue" onclick="doTransfer()">Send Transfer</button>
-          <button class="pb pb-ghost" onclick="closeAll()">Cancel</button>
-        </div>
+        <div class="pf"><label>Recipient</label><select id="trans-tgt"><option value="">— Select recipient —</option></select></div>
+        <div class="pf"><label>Amount (CAD $)</label><input type="number" id="trans-amt" placeholder="0.00" min="0.01" step="0.01" /></div>
+        <div class="pacts"><button class="pb pb-blue" onclick="doTransfer()">Send Transfer</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
         <div class="pmsg" id="trans-msg"></div>
       </div>
-    </div>
 
-    <!-- HISTORY -->
-    <div id="sec-history" style="display:none;">
-      <div class="sec-title">Transaction History</div>
-      <div style="background:#fff;border-radius:8px;box-shadow:var(--card-shadow);overflow:hidden;">
-        <table class="txt">
-          <thead><tr><th>Date</th><th>Description</th><th>Type</th><th style="text-align:right">Amount</th></tr></thead>
-          <tbody id="tx-body"></tbody>
-        </table>
+      <!-- FREEZE / UNFREEZE (admin) -->
+      <div class="panel" id="p-freeze">
+        <h3>Freeze / Unfreeze Account</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">Frozen accounts cannot deposit, withdraw, or transfer. Admins can still manage them.</p>
+        <div class="pf"><label>Select Account</label><select id="freeze-tgt"></select></div>
+        <div id="freeze-status" style="font-size:0.82rem;margin-bottom:12px;display:none;"></div>
+        <div class="pacts">
+          <button class="pb pb-grn" id="freeze-btn" onclick="doFreeze()">Freeze Account</button>
+          <button class="pb pb-ghost" onclick="closeAll()">Cancel</button>
+        </div>
+        <div class="pmsg" id="freeze-msg"></div>
+      </div>
+
+      <!-- ADJUST BALANCE (admin) -->
+      <div class="panel" id="p-adjust">
+        <h3>Adjust Balance</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px;">Directly set a client's balance without a transaction record. Use for corrections only.</p>
+        <div class="pf"><label>Select Account</label><select id="adj-tgt"></select></div>
+        <div class="pf"><label>Set New Balance ($)</label><input type="number" id="adj-bal" placeholder="0.00" min="0" step="0.01" /></div>
+        <div class="pf"><label>Reason / Note</label><input type="text" id="adj-reason" placeholder="e.g. Error correction" /></div>
+        <div class="pacts"><button class="pb pb-blue" onclick="doAdjust()">Apply Adjustment</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
+        <div class="pmsg" id="adj-msg"></div>
+      </div>
+
+      <!-- SEND MESSAGE (admin) -->
+      <div class="panel" id="p-note">
+        <h3>Send Message to Client</h3>
+        <div class="pf"><label>Recipient</label><select id="note-tgt"></select></div>
+        <div class="pf"><label>Subject</label><input type="text" id="note-subject" placeholder="e.g. Account Notice" /></div>
+        <div class="pf"><label>Message</label><textarea id="note-body" placeholder="Type your message here..."></textarea></div>
+        <div class="pacts"><button class="pb pb-blue" onclick="doSendMessage()">Send Message</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
+        <div class="pmsg" id="note-msg"></div>
       </div>
     </div>
 
-    <!-- MANAGE (admin) -->
+    <!-- ── TRANSACTIONS ── -->
+    <div id="sec-history" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="sec-title" style="margin-bottom:0;border:none;">Transaction History</div>
+        <div id="admin-tx-filter" style="display:none;">
+          <select id="tx-filter-acct" onchange="renderTx()" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:5px;font-family:'Inter',sans-serif;font-size:0.8rem;outline:none;">
+            <option value="all">All Accounts</option>
+          </select>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:8px;box-shadow:var(--shadow);overflow:hidden;">
+        <table class="tbl"><thead><tr><th>Date</th><th>Account</th><th>Description</th><th>Type</th><th style="text-align:right">Amount</th></tr></thead>
+        <tbody id="tx-body"></tbody></table>
+      </div>
+    </div>
+
+    <!-- ── MANAGE ACCOUNTS (admin) ── -->
     <div id="sec-manage" style="display:none;">
       <div class="sec-title">Manage Accounts</div>
-      <div class="qas" style="margin-bottom:18px;">
+      <div class="qas" style="margin-bottom:16px;">
         <button class="qab" id="qa-add" onclick="tog('p-add','qa-add')">
-          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Add Account
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Add Account
         </button>
         <button class="qab red" id="qa-del" onclick="tog('p-del','qa-del')">
-          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>Delete Account
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>Delete Account
         </button>
       </div>
 
@@ -454,43 +422,112 @@ CREATE POLICY "open" ON transactions FOR ALL USING (true) WITH CHECK (true);</co
           <div class="pf"><label>Starting Balance ($)</label><input type="number" id="add-bal" placeholder="0.00" min="0" step="0.01" /></div>
           <div class="pf"><label>Role</label>
             <select id="add-role" onchange="document.getElementById('add-pw-wrap').style.display=this.value==='admin'?'':'none'">
-              <option value="client">Client</option>
-              <option value="admin">Admin / Staff</option>
+              <option value="client">Client</option><option value="admin">Admin / Staff</option>
             </select>
           </div>
         </div>
-        <div class="pf" id="add-pw-wrap" style="display:none;">
-          <label>Admin Password</label>
-          <input type="password" id="add-pw" placeholder="Set a password" />
-        </div>
-        <div class="pacts">
-          <button class="pb pb-blue" onclick="doAddAccount()">Create Account</button>
-          <button class="pb pb-ghost" onclick="closeAll()">Cancel</button>
-        </div>
+        <div class="pf" id="add-pw-wrap" style="display:none;"><label>Admin Password</label><input type="password" id="add-pw" placeholder="Set a password" /></div>
+        <div class="pacts"><button class="pb pb-blue" onclick="doAddAccount()">Create Account</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
         <div class="pmsg" id="add-msg"></div>
       </div>
 
       <!-- DELETE -->
       <div class="panel redtop" id="p-del">
         <h3>Delete Account</h3>
-        <div class="pf">
-          <label>Select Account to Remove</label>
+        <div class="pf"><label>Select Account to Remove</label>
           <select id="del-sel" onchange="document.getElementById('del-warn').classList.toggle('show',!!this.value);document.getElementById('del-msg').className='pmsg'"></select>
         </div>
-        <div class="warnbox" id="del-warn">⚠️ <strong>Warning:</strong> This permanently deletes the account and all transaction history from the database. Cannot be undone.</div>
-        <div class="pacts">
-          <button class="pb pb-red" onclick="doDelete()">Delete Permanently</button>
-          <button class="pb pb-ghost" onclick="closeAll()">Cancel</button>
-        </div>
+        <div class="warnbox" id="del-warn">⚠️ <strong>Warning:</strong> This permanently deletes the account and all transaction history. Cannot be undone.</div>
+        <div class="pacts"><button class="pb pb-red" onclick="doDelete()">Delete Permanently</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
         <div class="pmsg" id="del-msg"></div>
       </div>
 
       <!-- ACCOUNTS TABLE -->
-      <div style="background:#fff;border-radius:8px;box-shadow:var(--card-shadow);overflow:hidden;margin-top:6px;">
-        <table class="atbl">
-          <thead><tr><th>Name</th><th>Account #</th><th>Role</th><th style="text-align:right">Balance</th><th></th></tr></thead>
+      <div style="background:#fff;border-radius:8px;box-shadow:var(--shadow);overflow:hidden;margin-top:4px;">
+        <table class="tbl">
+          <thead><tr><th>Name</th><th>Account #</th><th>Role</th><th>Status</th><th style="text-align:right">Balance</th><th></th></tr></thead>
           <tbody id="atbl-body"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- ── REPORTS (admin) ── -->
+    <div id="sec-reports" style="display:none;">
+      <div class="sec-title">Reports & Analytics</div>
+      <div class="stats-row" style="margin-bottom:20px;">
+        <div class="stat-card">
+          <div class="stat-label">Total Assets</div>
+          <div class="stat-val" id="rep-total" style="font-size:1.15rem;">—</div>
+          <div class="stat-sub">All client balances combined</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--ok);">
+          <div class="stat-label">Richest Client</div>
+          <div class="stat-val" id="rep-richest" style="font-size:1rem;">—</div>
+          <div class="stat-sub" id="rep-richest-bal">—</div>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--err);">
+          <div class="stat-label">Lowest Balance</div>
+          <div class="stat-val" id="rep-lowest" style="font-size:1rem;">—</div>
+          <div class="stat-sub" id="rep-lowest-bal">—</div>
+        </div>
+        <div class="stat-card" style="border-top-color:#f59e0b;">
+          <div class="stat-label">Avg. Balance</div>
+          <div class="stat-val" id="rep-avg" style="font-size:1.15rem;">—</div>
+          <div class="stat-sub">Per client account</div>
+        </div>
+      </div>
+      <div class="sec-title">All Client Balances</div>
+      <div style="background:#fff;border-radius:8px;box-shadow:var(--shadow);overflow:hidden;">
+        <table class="tbl">
+          <thead><tr><th>Name</th><th>Account #</th><th>Status</th><th style="text-align:right">Balance</th><th style="text-align:right">% of Total</th></tr></thead>
+          <tbody id="rep-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── MESSAGES (admin) ── -->
+    <div id="sec-messages" style="display:none;">
+      <div class="sec-title">Message Inbox</div>
+      <div style="background:#fff;border-radius:8px;box-shadow:var(--shadow);overflow:hidden;">
+        <div id="msg-inbox" style="padding:16px;">
+          <div class="tempty">Loading messages...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS ── -->
+    <div id="sec-password" style="display:none;">
+      <div class="sec-title">Account Settings</div>
+      <div style="background:#fff;border-radius:8px;box-shadow:var(--shadow);padding:26px;max-width:500px;">
+        <div style="margin-bottom:20px;">
+          <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:12px;">Account Info</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:8px 0;border-bottom:1px solid var(--border);">
+              <span style="color:var(--muted);">Name</span><span id="info-name" style="font-weight:600;"></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:8px 0;border-bottom:1px solid var(--border);">
+              <span style="color:var(--muted);">Account #</span><span id="info-acct" style="font-weight:600;font-family:monospace;"></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:8px 0;border-bottom:1px solid var(--border);">
+              <span style="color:var(--muted);">Role</span><span id="info-role" style="font-weight:600;"></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:8px 0;">
+              <span style="color:var(--muted);">Balance</span><span id="info-bal" style="font-weight:600;color:var(--blue);"></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="pw-section">
+          <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:12px;">Change Password</div>
+          <div id="pw-client-note" style="display:none;font-size:0.82rem;color:var(--muted);padding:12px;background:#f8f9fb;border-radius:6px;">Client accounts use their account number to sign in and do not have a password.</div>
+          <div id="pw-fields">
+            <div class="pf"><label>Current Password</label><input type="password" id="pw-current" placeholder="Enter current password" autocomplete="off" /></div>
+            <div class="pf"><label>New Password</label><input type="password" id="pw-new" placeholder="Enter new password" autocomplete="off" /></div>
+            <div class="pf"><label>Confirm New Password</label><input type="password" id="pw-confirm" placeholder="Re-enter new password" autocomplete="off" /></div>
+            <div class="pacts"><button class="pb pb-blue" onclick="doChangePw()">Update Password</button></div>
+          </div>
+          <div class="pmsg" id="pw-msg"></div>
+        </div>
       </div>
     </div>
 
@@ -499,446 +536,550 @@ CREATE POLICY "open" ON transactions FOR ALL USING (true) WITH CHECK (true);</co
 </div>
 
 <script>
-// ══════════════════════════════════
-// CONFIG — paste your Supabase creds
-// ══════════════════════════════════
+// ══ CONFIG ══
 const SB_URL = 'https://jezyvsmsmprhxvbywukm.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Implenl2c21zbXByaHh2Ynl3dWttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NDI1MjAsImV4cCI6MjA4ODMxODUyMH0.4ylA5XnxMp_rcdIlMtOQzAzN-QX5IZ0t8hPTyiY8lBQ';
 
-// ══════════════════════════════════
-// SEED DATA
-// ══════════════════════════════════
+// ══ SEED ══
 const SEED = [
-  {name:'Amir',     account_number:'102 841 9812',balance:226, role:'client',password:null},
-  {name:'Ibrahim',  account_number:'821 893 8219',balance:57,  role:'client',password:null},
-  {name:'Aiden',    account_number:'019 832 8019',balance:148, role:'client',password:null},
-  {name:'Aadvik',   account_number:'901 812 8432',balance:181, role:'client',password:null},
-  {name:'Mavisha',  account_number:'923 841 0923',balance:122, role:'client',password:null},
-  {name:'Preston',  account_number:'010 832 8013',balance:77,  role:'client',password:null},
-  {name:'Keionna',  account_number:'921 012 3818',balance:44,  role:'client',password:null},
-  {name:'Thatunika',account_number:'092 812 8918',balance:176, role:'client',password:null},
-  {name:'Caleb',    account_number:'943 192 8321',balance:52,  role:'client',password:null},
-  {name:'Meghan',   account_number:'897 798 8797',balance:36,  role:'client',password:null},
-  {name:'Shriya',   account_number:'090 829 8281',balance:139, role:'client',password:null},
-  {name:'Jonathan', account_number:'000 000 0000',balance:0,   role:'admin', password:'000 000 0000'},
-  {name:'Amir',     account_number:'102 841 9812',balance:0,   role:'admin', password:'102 841 9812'},
-  {name:'Aiden',    account_number:'019 832 8019',balance:0,   role:'admin', password:'019 832 8019'},
-  {name:'Ibrahim',  account_number:'821 893 8219',balance:0,   role:'admin', password:'821 893 8219'},
-  {name:'David',    account_number:'555 123 4567',balance:0,   role:'admin', password:'555 123 4567'},
+  {name:'Amir',     account_number:'102 841 9812',balance:226, role:'client',password:null,frozen:false},
+  {name:'Ibrahim',  account_number:'821 893 8219',balance:57,  role:'client',password:null,frozen:false},
+  {name:'Aiden',    account_number:'019 832 8019',balance:148, role:'client',password:null,frozen:false},
+  {name:'Aadvik',   account_number:'901 812 8432',balance:181, role:'client',password:null,frozen:false},
+  {name:'Mavisha',  account_number:'923 841 0923',balance:122, role:'client',password:null,frozen:false},
+  {name:'Preston',  account_number:'010 832 8013',balance:77,  role:'client',password:null,frozen:false},
+  {name:'Keionna',  account_number:'921 012 3818',balance:44,  role:'client',password:null,frozen:false},
+  {name:'Thatunika',account_number:'092 812 8918',balance:176, role:'client',password:null,frozen:false},
+  {name:'Caleb',    account_number:'943 192 8321',balance:52,  role:'client',password:null,frozen:false},
+  {name:'Meghan',   account_number:'897 798 8797',balance:36,  role:'client',password:null,frozen:false},
+  {name:'Shriya',   account_number:'090 829 8281',balance:139, role:'client',password:null,frozen:false},
+  {name:'Jonathan', account_number:'000 000 0000',balance:0,   role:'admin', password:'000 000 0000',frozen:false},
+  {name:'Amir',     account_number:'102 841 9812',balance:0,   role:'admin', password:'102 841 9812',frozen:false},
+  {name:'Aiden',    account_number:'019 832 8019',balance:0,   role:'admin', password:'019 832 8019',frozen:false},
+  {name:'Ibrahim',  account_number:'821 893 8219',balance:0,   role:'admin', password:'821 893 8219',frozen:false},
+  {name:'David',    account_number:'555 123 4567',balance:0,   role:'admin', password:'555 123 4567',frozen:false},
 ];
 
-// ══════════════════════════════════
-// SUPABASE API
-// ══════════════════════════════════
+// ══ SUPABASE ══
 async function sb(path, opts={}) {
-  const r = await fetch(SB_URL + path, {
+  const r = await fetch(SB_URL+path, {
     ...opts,
-    headers: {
-      'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY,
-      'Content-Type': 'application/json', 'Prefer': 'return=representation',
-      ...opts.headers
-    }
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation',...opts.headers}
   });
   if (!r.ok) throw new Error(await r.text());
-  const t = await r.text();
-  return t ? JSON.parse(t) : [];
+  const t = await r.text(); return t ? JSON.parse(t) : [];
 }
-const getAccs   = ()       => sb('/rest/v1/accounts?order=name');
-const updBal    = (id,b)   => sb(`/rest/v1/accounts?id=eq.${id}`,{method:'PATCH',body:JSON.stringify({balance:b})});
-const insAcc    = (d)      => sb('/rest/v1/accounts',{method:'POST',body:JSON.stringify(d)});
-const delAcc    = (id)     => sb(`/rest/v1/accounts?id=eq.${id}`,{method:'DELETE'});
-const getTxs    = (aid)    => sb(`/rest/v1/transactions?account_id=eq.${aid}&order=created_at.desc`);
-const insTx     = (d)      => sb('/rest/v1/transactions',{method:'POST',body:JSON.stringify(d)});
+const getAccs  = ()      => sb('/rest/v1/accounts?order=name');
+const updAcc   = (id,d)  => sb(`/rest/v1/accounts?id=eq.${id}`,{method:'PATCH',body:JSON.stringify(d)});
+const insAcc   = d       => sb('/rest/v1/accounts',{method:'POST',body:JSON.stringify(d)});
+const delAcc   = id      => sb(`/rest/v1/accounts?id=eq.${id}`,{method:'DELETE'});
+const getTxs   = (f)     => sb(`/rest/v1/transactions?${f}&order=created_at.desc&limit=200`);
+const insTx    = d       => sb('/rest/v1/transactions',{method:'POST',body:JSON.stringify(d)});
+const getMsgs  = ()      => sb('/rest/v1/messages?order=created_at.desc');
+const insMsg   = d       => sb('/rest/v1/messages',{method:'POST',body:JSON.stringify(d)});
 
 async function seedIfEmpty() {
   try {
     const ex = await sb('/rest/v1/accounts?select=id&limit=1');
-    if (!ex || ex.length === 0) {
-      for (const s of SEED) {
-        try { await insAcc(s); } catch(e) { console.warn('Seed error for '+s.name, e.message); }
-      }
-    }
-  } catch(e){ console.warn('seedIfEmpty error:', e.message); }
+    if (!ex||ex.length===0) for (const s of SEED) try { await insAcc(s); } catch(e){}
+  } catch(e){}
 }
 
-// ══════════════════════════════════
-// STATE
-// ══════════════════════════════════
-let cu = null;   // current user row
-let allAccs = [];
-let loginRole = 'client';
+// ══ STATE ══
+let cu=null, allAccs=[], loginRole='client';
+const actLog = [];
 
-// ══════════════════════════════════
-// HELPERS
-// ══════════════════════════════════
-const load  = (t='Loading...')  => { document.getElementById('ltxt').textContent=t; document.getElementById('loading-overlay').classList.add('show'); };
-const unload = ()               => document.getElementById('loading-overlay').classList.remove('show');
-const fmt   = n => '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-const msg   = (id,t,c)          => { const e=document.getElementById(id); e.textContent=t; e.className='pmsg '+c; };
+// ══ HELPERS ══
+const load  = t => { document.getElementById('ltxt').textContent=t||'Loading...'; document.getElementById('loading-overlay').classList.add('show'); };
+const unload = () => document.getElementById('loading-overlay').classList.remove('show');
+const fmt   = n => '$'+Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const msg   = (id,t,c) => { const e=document.getElementById(id); e.textContent=t; e.className='pmsg '+c; };
+const ts    = () => new Date().toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit'});
+const dateStr = d => new Date(d).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});
 
-function setRole(r) {
-  loginRole = r;
-  document.getElementById('tab-client').classList.toggle('active', r==='client');
-  document.getElementById('tab-admin').classList.toggle('active', r==='admin');
-  document.getElementById('acct-wrap').style.display = r==='client' ? '' : 'none';
-  document.getElementById('pass-wrap').style.display = r==='admin'  ? '' : 'none';
-}
+function logAction(text, type='info') { actLog.unshift({text,type,time:ts()}); }
 
 function showPage(id) {
-  const current = document.querySelector('.page.active.visible');
-  const next = document.getElementById(id);
-
-  if (current && current !== next) {
-    current.classList.add('exit');
-    setTimeout(() => {
-      current.classList.remove('active','visible','exit');
-      current.style.display = 'none';
-      next.style.display = 'block';
-      next.classList.add('active');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          next.classList.add('visible');
-        });
-      });
-    }, 220);
+  const cur = document.querySelector('.page.active.visible');
+  const nxt = document.getElementById(id);
+  if (cur && cur!==nxt) {
+    cur.classList.add('exit');
+    setTimeout(()=>{ cur.classList.remove('active','visible','exit'); cur.style.display='none';
+      nxt.style.display='block'; nxt.classList.add('active');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>nxt.classList.add('visible')));
+    },220);
   } else {
-    document.querySelectorAll('.page').forEach(p => {
-      p.classList.remove('active','visible','exit');
-      p.style.display = 'none';
-    });
-    next.style.display = 'block';
-    next.classList.add('active');
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        next.classList.add('visible');
-      });
-    });
+    document.querySelectorAll('.page').forEach(p=>{ p.classList.remove('active','visible','exit'); p.style.display='none'; });
+    nxt.style.display='block'; nxt.classList.add('active');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>nxt.classList.add('visible')));
   }
 }
 
-function goSection(name, btn) {
-  ['overview','history','manage'].forEach(s => document.getElementById('sec-'+s).style.display = s===name?'':'none');
-  document.querySelectorAll('.tnav').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  if (name==='history') renderTx();
-  if (name==='manage') renderAccTable();
+function goSec(name, btn) {
+  ['overview','history','manage','reports','messages','password'].forEach(s=>{
+    const el=document.getElementById('sec-'+s);
+    if(el) el.style.display=s===name?'':'none';
+  });
+  document.querySelectorAll('.tnav').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(name==='history') renderTx();
+  if(name==='manage') renderAccTable();
+  if(name==='reports') renderReports();
+  if(name==='messages') renderMessages();
+  if(name==='password') renderSettings();
 }
 
-function tog(id, btnId) {
-  const p = document.getElementById(id);
-  const was = p.classList.contains('open');
-  closeAll();
-  if (!was) { p.classList.add('open'); if(btnId) document.getElementById(btnId).classList.add('active'); }
+function tog(id,btnId) {
+  const p=document.getElementById(id); const was=p.classList.contains('open');
+  closeAll(); if(!was){p.classList.add('open');if(btnId)document.getElementById(btnId).classList.add('active');}
 }
-
 function closeAll() {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
-  document.querySelectorAll('.qab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.qab').forEach(b=>b.classList.remove('active'));
 }
 
-function refreshBal() { document.getElementById('ac-bal').textContent = fmt(cu.balance); }
+function refreshBal() { document.getElementById('ac-bal').textContent=fmt(cu.balance); }
+function refreshStats() {
+  const clients=allAccs.filter(a=>a.role==='client');
+  const admins=allAccs.filter(a=>a.role==='admin');
+  const frozen=allAccs.filter(a=>a.frozen);
+  const total=clients.reduce((s,a)=>s+Number(a.balance),0);
+  document.getElementById('stat-clients').textContent=clients.length;
+  document.getElementById('stat-deposits').textContent=fmt(total);
+  document.getElementById('stat-admins').textContent=admins.length;
+  document.getElementById('stat-frozen').textContent=frozen.length;
+}
 
 function fillDrops() {
-  const clients = allAccs.filter(a => a.role==='client');
-  ['dep-tgt','with-tgt'].forEach(id => {
-    const el = document.getElementById(id);
-    const pv = el.value;
-    el.innerHTML = '<option value="">— Select account —</option>';
-    clients.forEach(a => {
-      const o = document.createElement('option');
-      o.value = a.id; o.textContent = a.name+' · '+a.account_number+' · '+fmt(a.balance);
-      el.appendChild(o);
-    });
-    if(pv) el.value = pv;
+  const clients=allAccs.filter(a=>a.role==='client');
+  ['dep-tgt','with-tgt'].forEach(id=>{
+    const el=document.getElementById(id); const pv=el.value;
+    el.innerHTML='<option value="">— Select account —</option>';
+    clients.forEach(a=>{ const o=document.createElement('option'); o.value=a.id; o.textContent=`${a.name} · ${a.account_number} · ${fmt(a.balance)}${a.frozen?' ❄':''}`;el.appendChild(o); });
+    if(pv)el.value=pv;
   });
-  const ts = document.getElementById('trans-tgt');
-  ts.innerHTML = '<option value="">— Select recipient —</option>';
-  clients.filter(a => a.id!==cu.id).forEach(a => {
-    const o = document.createElement('option');
-    o.value = a.id; o.textContent = a.name+' · '+a.account_number;
-    ts.appendChild(o);
+  const ts=document.getElementById('trans-tgt');
+  ts.innerHTML='<option value="">— Select recipient —</option>';
+  clients.filter(a=>a.id!==cu.id&&!a.frozen).forEach(a=>{ const o=document.createElement('option'); o.value=a.id; o.textContent=`${a.name} · ${a.account_number}`; ts.appendChild(o); });
+  ['freeze-tgt','adj-tgt','note-tgt'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return; el.innerHTML='<option value="">— Select account —</option>';
+    clients.forEach(a=>{ const o=document.createElement('option'); o.value=a.id; o.textContent=`${a.name} · ${a.account_number}${a.frozen?' ❄ FROZEN':''}`; el.appendChild(o); });
   });
-  const ds = document.getElementById('del-sel');
-  ds.innerHTML = '<option value="">— Select account —</option>';
-  allAccs.forEach(a => {
-    const o = document.createElement('option');
-    o.value = a.id; o.textContent = a.name+' ('+a.role+') · '+a.account_number;
-    ds.appendChild(o);
-  });
+  const ds=document.getElementById('del-sel');
+  ds.innerHTML='<option value="">— Select account —</option>';
+  allAccs.forEach(a=>{ const o=document.createElement('option'); o.value=a.id; o.textContent=`${a.name} (${a.role}) · ${a.account_number}`; ds.appendChild(o); });
+  // tx filter
+  const tf=document.getElementById('tx-filter-acct');
+  if(tf){ tf.innerHTML='<option value="all">All Accounts</option>'; clients.forEach(a=>{ const o=document.createElement('option'); o.value=a.id; o.textContent=a.name+' · '+a.account_number; tf.appendChild(o); }); }
+  // freeze btn update
+  document.getElementById('freeze-tgt').addEventListener('change',updateFreezeBtn);
 }
 
-// ══════════════════════════════════
-// LOGIN
-// ══════════════════════════════════
-['inp-name','inp-acct','inp-pass'].forEach(id =>
-  document.getElementById(id).addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); })
-);
+function updateFreezeBtn() {
+  const id=document.getElementById('freeze-tgt').value;
+  const acc=allAccs.find(a=>String(a.id)===String(id));
+  const statusEl=document.getElementById('freeze-status');
+  const btn=document.getElementById('freeze-btn');
+  if(acc){ statusEl.style.display='block'; statusEl.innerHTML=acc.frozen?'<span style="color:var(--err);font-weight:600;">❄ This account is currently FROZEN</span>':'<span style="color:var(--ok);font-weight:600;">✓ This account is currently active</span>'; btn.textContent=acc.frozen?'Unfreeze Account':'Freeze Account'; btn.className=acc.frozen?'pb pb-grn':'pb pb-red'; }
+  else { statusEl.style.display='none'; btn.textContent='Freeze Account'; btn.className='pb pb-grn'; }
+}
+
+// ══ LOGIN ══
+['inp-name','inp-acct','inp-pass'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();}));
+
+function setRole(r) {
+  loginRole=r;
+  document.getElementById('tab-client').classList.toggle('active',r==='client');
+  document.getElementById('tab-admin').classList.toggle('active',r==='admin');
+  document.getElementById('acct-wrap').style.display=r==='client'?'':'none';
+  document.getElementById('pass-wrap').style.display=r==='admin'?'':'none';
+}
 
 async function doLogin() {
-  const name = document.getElementById('inp-name').value.trim();
-  const errEl = document.getElementById('lerr');
+  const name=document.getElementById('inp-name').value.trim();
+  const errEl=document.getElementById('lerr');
   errEl.classList.remove('show');
-  if (!name) { errEl.textContent='Please enter your name.'; errEl.classList.add('show'); return; }
+  if(!name){errEl.textContent='Please enter your name.';errEl.classList.add('show');return;}
   load('Signing in...');
   try {
     let rows;
-    if (loginRole==='client') {
-      const acct = document.getElementById('inp-acct').value.trim();
-      if (!acct) { unload(); errEl.textContent='Please enter your account number.'; errEl.classList.add('show'); return; }
-      const allC = await sb('/rest/v1/accounts?role=eq.client&select=*');
-      console.log('All clients from DB:', allC);
-      console.log('Looking for name:', JSON.stringify(name), 'acct:', JSON.stringify(acct));
-      rows = allC.filter(a => {
-        const nameMatch = a.name.trim().toLowerCase() === name.toLowerCase();
-        const acctMatch = (a.account_number||'').replace(/\s/g,'') === acct.replace(/\s/g,'');
-        console.log(`  Row: name="${a.name}" acct="${a.account_number}" | nameMatch=${nameMatch} acctMatch=${acctMatch}`);
-        return nameMatch && acctMatch;
-      });
+    if(loginRole==='client'){
+      const acct=document.getElementById('inp-acct').value.trim();
+      if(!acct){unload();errEl.textContent='Please enter your account number.';errEl.classList.add('show');return;}
+      const all=await sb('/rest/v1/accounts?role=eq.client&select=*');
+      rows=all.filter(a=>a.name.trim().toLowerCase()===name.toLowerCase()&&(a.account_number||'').replace(/\s/g,'')===acct.replace(/\s/g,''));
     } else {
-      const pass = document.getElementById('inp-pass').value.trim();
-      if (!pass) { unload(); errEl.textContent='Please enter your password.'; errEl.classList.add('show'); return; }
-      const allA = await sb('/rest/v1/accounts?role=eq.admin&select=*');
-      console.log('All admins from DB:', allA);
-      console.log('Looking for admin name:', JSON.stringify(name), 'pass:', JSON.stringify(pass));
-      rows = allA.filter(a => {
-        const nameMatch = a.name.trim().toLowerCase() === name.toLowerCase();
-        const passMatch = a.password && (a.password).replace(/\s/g,'') === pass.replace(/\s/g,'');
-        console.log(`  Row: name="${a.name}" pass="${a.password}" | nameMatch=${nameMatch} passMatch=${passMatch}`);
-        return nameMatch && passMatch;
-      });
+      const pass=document.getElementById('inp-pass').value.trim();
+      if(!pass){unload();errEl.textContent='Please enter your password.';errEl.classList.add('show');return;}
+      const all=await sb('/rest/v1/accounts?role=eq.admin&select=*');
+      rows=all.filter(a=>a.name.trim().toLowerCase()===name.toLowerCase()&&a.password&&a.password.replace(/\s/g,'')===pass.replace(/\s/g,''));
     }
-    if (!rows || rows.length===0) {
-      unload();
-      errEl.style.cssText='display:block;background:#fff0f2;border-color:#f7b3bc;color:#c8102e;';
-      errEl.textContent='Invalid credentials — open browser Console (F12) to see debug info.';
-      errEl.classList.add('show');
-      return;
-    }
-    cu = rows[0];
-    allAccs = await getAccs();
-    unload();
+    if(!rows||rows.length===0){unload();errEl.textContent='Invalid credentials. Please check and try again.';errEl.classList.add('show');return;}
+    cu=rows[0]; allAccs=await getAccs(); unload();
+    logAction(`${cu.name} signed in`,'info');
     loadDash();
-  } catch(e) {
-    unload();
-    errEl.style.cssText='display:block;background:#fff0f2;border-color:#f7b3bc;color:#c8102e;';
-    errEl.textContent='Connection error: '+e.message;
-    errEl.classList.add('show');
-    console.error('Login error:', e);
-  }
+  } catch(e){unload();errEl.textContent='Connection error: '+e.message;errEl.classList.add('show');}
 }
 
 function loadDash() {
-  const isAdmin = cu.role==='admin';
-  document.getElementById('tu-name').textContent      = cu.name.toUpperCase();
-  document.getElementById('w-name').textContent       = 'Welcome back, '+cu.name;
-  document.getElementById('w-date').textContent       = new Date().toLocaleDateString('en-CA',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  document.getElementById('w-badge').textContent      = isAdmin ? 'Admin / Staff' : 'Client';
-  document.getElementById('w-badge').style.background = isAdmin ? 'rgba(200,16,46,0.18)' : 'rgba(255,255,255,0.12)';
-  document.getElementById('w-badge').style.color      = isAdmin ? '#ffaaaa' : 'var(--rbc-yellow)';
-  document.getElementById('w-badge').style.borderColor= isAdmin ? 'rgba(200,16,46,0.35)' : 'rgba(255,255,255,0.2)';
-  document.getElementById('ac-name').textContent      = cu.name;
-  document.getElementById('ac-num').textContent       = isAdmin ? 'Staff Account' : cu.account_number;
-  document.getElementById('ac-bal').textContent       = fmt(cu.balance);
-  document.getElementById('tnav-manage').style.display= isAdmin ? '' : 'none';
-  document.getElementById('qa-trans').style.display   = isAdmin ? 'none' : '';
-  document.getElementById('dep-tgt-wrap').style.display  = isAdmin ? '' : 'none';
-  document.getElementById('with-tgt-wrap').style.display = isAdmin ? '' : 'none';
-  if (isAdmin) fillDrops();
-  closeAll();
-  showPage('main-page');
-  goSection('overview', document.querySelector('.tnav'));
+  const isAdmin=cu.role==='admin';
+  document.getElementById('tu-name').textContent=cu.name.toUpperCase();
+  document.getElementById('w-name').textContent='Welcome back, '+cu.name;
+  document.getElementById('w-date').textContent=new Date().toLocaleDateString('en-CA',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('w-badge').textContent=isAdmin?'Admin / Staff':'Client';
+  document.getElementById('w-badge').style.cssText=isAdmin?'background:rgba(200,16,46,0.18);color:#ffaaaa;border-color:rgba(200,16,46,0.35);':'background:rgba(255,255,255,0.12);color:var(--yellow);border-color:rgba(255,255,255,0.2);';
+  document.getElementById('ac-name').textContent=cu.name;
+  document.getElementById('ac-num').textContent=isAdmin?'Staff Account':cu.account_number;
+  document.getElementById('ac-bal').textContent=fmt(cu.balance);
+  // Admin-only UI
+  ['tnav-manage','tnav-reports','tnav-messages','admin-stats','admin-tx-filter'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display=isAdmin?'':'none';
+  });
+  ['qa-freeze','qa-adjust','qa-note'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display=isAdmin?'':'none';
+  });
+  document.getElementById('qa-trans').style.display=isAdmin?'none':'';
+  document.getElementById('dep-tgt-wrap').style.display=isAdmin?'':'none';
+  document.getElementById('with-tgt-wrap').style.display=isAdmin?'':'none';
+  if(isAdmin){fillDrops();refreshStats();}
+  closeAll(); showPage('main-page');
+  goSec('overview',document.querySelector('.tnav'));
 }
 
 function doLogout() {
-  cu=null; allAccs=[];
-  ['inp-name','inp-acct','inp-pass'].forEach(id => document.getElementById(id).value='');
+  cu=null;allAccs=[];
+  ['inp-name','inp-acct','inp-pass'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('lerr').classList.remove('show');
-  setRole('client'); closeAll();
-  showPage('login-page');
+  setRole('client');closeAll();showPage('login-page');
 }
 
-// ══════════════════════════════════
-// DEPOSIT
-// ══════════════════════════════════
+// ══ DEPOSIT ══
 async function doDeposit() {
-  const val = parseFloat(document.getElementById('dep-amt').value);
-  if (!val||val<=0) { msg('dep-msg','Please enter a valid amount.','err'); return; }
-  let tgt = cu;
-  if (cu.role==='admin') {
-    const tid = document.getElementById('dep-tgt').value;
-    if (!tid) { msg('dep-msg','Please select a target account.','err'); return; }
-    tgt = allAccs.find(a=>String(a.id)===String(tid));
-  }
+  const val=parseFloat(document.getElementById('dep-amt').value);
+  if(!val||val<=0){msg('dep-msg','Please enter a valid amount.','err');return;}
+  let tgt=cu;
+  if(cu.role==='admin'){const tid=document.getElementById('dep-tgt').value;if(!tid){msg('dep-msg','Please select a target account.','err');return;}tgt=allAccs.find(a=>String(a.id)===String(tid));}
+  if(tgt.frozen){msg('dep-msg','This account is frozen. Unfreeze it first.','err');return;}
   load('Processing deposit...');
   try {
-    const nb = Number(tgt.balance)+val;
-    await updBal(tgt.id, nb);
-    await insTx({account_id:tgt.id, type:'credit', description:cu.role==='admin'?'Admin Deposit':'Deposit', amount:val});
-    tgt.balance=nb;
-    if (tgt.id===cu.id) { cu.balance=nb; refreshBal(); }
-    unload();
-    msg('dep-msg',`✓ Deposited ${fmt(val)} into ${tgt.name}'s account. New balance: ${fmt(nb)}`,'ok');
+    const nb=Number(tgt.balance)+val;
+    await updAcc(tgt.id,{balance:nb});
+    await insTx({account_id:tgt.id,type:'credit',description:cu.role==='admin'?'Admin Deposit':'Deposit',amount:val});
+    tgt.balance=nb; if(tgt.id===cu.id){cu.balance=nb;refreshBal();}
+    if(cu.role==='admin'){fillDrops();refreshStats();}
+    logAction(`Deposited ${fmt(val)} into ${tgt.name}'s account`,'ok');
+    unload(); msg('dep-msg',`✓ Deposited ${fmt(val)} into ${tgt.name}'s account. New balance: ${fmt(nb)}`,'ok');
     document.getElementById('dep-amt').value='';
-    if (cu.role==='admin') fillDrops();
-  } catch(e) { unload(); msg('dep-msg','Error: '+e.message,'err'); }
+  } catch(e){unload();msg('dep-msg','Error: '+e.message,'err');}
 }
 
-// ══════════════════════════════════
-// WITHDRAW
-// ══════════════════════════════════
+// ══ WITHDRAW ══
 async function doWithdraw() {
-  const val = parseFloat(document.getElementById('with-amt').value);
-  if (!val||val<=0) { msg('with-msg','Please enter a valid amount.','err'); return; }
-  let tgt = cu;
-  if (cu.role==='admin') {
-    const tid = document.getElementById('with-tgt').value;
-    if (!tid) { msg('with-msg','Please select a target account.','err'); return; }
-    tgt = allAccs.find(a=>String(a.id)===String(tid));
-  }
-  if (val > Number(tgt.balance)) { msg('with-msg',`Insufficient funds. Available: ${fmt(tgt.balance)}`,'err'); return; }
+  const val=parseFloat(document.getElementById('with-amt').value);
+  if(!val||val<=0){msg('with-msg','Please enter a valid amount.','err');return;}
+  let tgt=cu;
+  if(cu.role==='admin'){const tid=document.getElementById('with-tgt').value;if(!tid){msg('with-msg','Please select a target account.','err');return;}tgt=allAccs.find(a=>String(a.id)===String(tid));}
+  if(tgt.frozen){msg('with-msg','This account is frozen. Unfreeze it first.','err');return;}
+  if(val>Number(tgt.balance)){msg('with-msg',`Insufficient funds. Available: ${fmt(tgt.balance)}`,'err');return;}
   load('Processing withdrawal...');
   try {
-    const nb = Number(tgt.balance)-val;
-    await updBal(tgt.id, nb);
-    await insTx({account_id:tgt.id, type:'debit', description:cu.role==='admin'?'Admin Withdrawal':'Withdrawal', amount:val});
-    tgt.balance=nb;
-    if (tgt.id===cu.id) { cu.balance=nb; refreshBal(); }
-    unload();
-    msg('with-msg',`✓ Withdrew ${fmt(val)} from ${tgt.name}'s account. New balance: ${fmt(nb)}`,'ok');
+    const nb=Number(tgt.balance)-val;
+    await updAcc(tgt.id,{balance:nb});
+    await insTx({account_id:tgt.id,type:'debit',description:cu.role==='admin'?'Admin Withdrawal':'Withdrawal',amount:val});
+    tgt.balance=nb; if(tgt.id===cu.id){cu.balance=nb;refreshBal();}
+    if(cu.role==='admin'){fillDrops();refreshStats();}
+    logAction(`Withdrew ${fmt(val)} from ${tgt.name}'s account`,'warn');
+    unload(); msg('with-msg',`✓ Withdrew ${fmt(val)} from ${tgt.name}'s account. New balance: ${fmt(nb)}`,'ok');
     document.getElementById('with-amt').value='';
-    if (cu.role==='admin') fillDrops();
-  } catch(e) { unload(); msg('with-msg','Error: '+e.message,'err'); }
+  } catch(e){unload();msg('with-msg','Error: '+e.message,'err');}
 }
 
-// ══════════════════════════════════
-// TRANSFER
-// ══════════════════════════════════
+// ══ TRANSFER ══
 async function doTransfer() {
-  const val = parseFloat(document.getElementById('trans-amt').value);
-  const rid = document.getElementById('trans-tgt').value;
-  if (!rid)     { msg('trans-msg','Please select a recipient.','err'); return; }
-  if (!val||val<=0) { msg('trans-msg','Please enter a valid amount.','err'); return; }
-  if (val > Number(cu.balance)) { msg('trans-msg',`Insufficient funds. Available: ${fmt(cu.balance)}`,'err'); return; }
-  const rec = allAccs.find(a=>String(a.id)===String(rid));
+  const val=parseFloat(document.getElementById('trans-amt').value);
+  const rid=document.getElementById('trans-tgt').value;
+  if(!rid){msg('trans-msg','Please select a recipient.','err');return;}
+  if(!val||val<=0){msg('trans-msg','Please enter a valid amount.','err');return;}
+  if(cu.frozen){msg('trans-msg','Your account is frozen. Contact your bank.','err');return;}
+  if(val>Number(cu.balance)){msg('trans-msg',`Insufficient funds. Available: ${fmt(cu.balance)}`,'err');return;}
+  const rec=allAccs.find(a=>String(a.id)===String(rid));
+  if(rec.frozen){msg('trans-msg','Recipient account is frozen.','err');return;}
   load('Processing transfer...');
   try {
-    const sb_ = Number(cu.balance)-val;
-    const rb  = Number(rec.balance)+val;
-    await updBal(cu.id, sb_);
-    await updBal(rec.id, rb);
-    await insTx({account_id:cu.id,  type:'debit',  description:`Transfer → ${rec.name}`, amount:val});
-    await insTx({account_id:rec.id, type:'credit', description:`Transfer ← ${cu.name}`,  amount:val});
+    const sb_=Number(cu.balance)-val, rb=Number(rec.balance)+val;
+    await updAcc(cu.id,{balance:sb_}); await updAcc(rec.id,{balance:rb});
+    await insTx({account_id:cu.id,type:'debit',description:`Transfer → ${rec.name}`,amount:val});
+    await insTx({account_id:rec.id,type:'credit',description:`Transfer ← ${cu.name}`,amount:val});
     cu.balance=sb_; rec.balance=rb; refreshBal();
-    unload();
-    msg('trans-msg',`✓ Transferred ${fmt(val)} to ${rec.name}. New balance: ${fmt(sb_)}`,'ok');
-    document.getElementById('trans-amt').value='';
-    document.getElementById('trans-tgt').value='';
-  } catch(e) { unload(); msg('trans-msg','Error: '+e.message,'err'); }
+    logAction(`Transferred ${fmt(val)} to ${rec.name}`,'info');
+    unload(); msg('trans-msg',`✓ Transferred ${fmt(val)} to ${rec.name}. New balance: ${fmt(sb_)}`,'ok');
+    document.getElementById('trans-amt').value=''; document.getElementById('trans-tgt').value='';
+  } catch(e){unload();msg('trans-msg','Error: '+e.message,'err');}
 }
 
-// ══════════════════════════════════
-// ADD ACCOUNT
-// ══════════════════════════════════
+// ══ FREEZE ══
+async function doFreeze() {
+  const id=document.getElementById('freeze-tgt').value;
+  if(!id){msg('freeze-msg','Please select an account.','err');return;}
+  const tgt=allAccs.find(a=>String(a.id)===String(id));
+  const newFrozen=!tgt.frozen;
+  load(newFrozen?'Freezing account...':'Unfreezing account...');
+  try {
+    await updAcc(tgt.id,{frozen:newFrozen});
+    tgt.frozen=newFrozen; fillDrops(); refreshStats(); updateFreezeBtn();
+    logAction(`${newFrozen?'Froze':'Unfroze'} ${tgt.name}'s account`,newFrozen?'danger':'ok');
+    unload(); msg('freeze-msg',`✓ Account for ${tgt.name} has been ${newFrozen?'frozen ❄':'unfrozen ✓'}.`,'ok');
+  } catch(e){unload();msg('freeze-msg','Error: '+e.message,'err');}
+}
+
+// ══ ADJUST BALANCE ══
+async function doAdjust() {
+  const id=document.getElementById('adj-tgt').value;
+  const bal=parseFloat(document.getElementById('adj-bal').value);
+  const reason=document.getElementById('adj-reason').value.trim()||'Admin adjustment';
+  if(!id){msg('adj-msg','Please select an account.','err');return;}
+  if(isNaN(bal)||bal<0){msg('adj-msg','Please enter a valid balance.','err');return;}
+  const tgt=allAccs.find(a=>String(a.id)===String(id));
+  const old=Number(tgt.balance);
+  load('Adjusting balance...');
+  try {
+    await updAcc(tgt.id,{balance:bal});
+    await insTx({account_id:tgt.id,type:bal>=old?'credit':'debit',description:`Adjustment: ${reason}`,amount:Math.abs(bal-old)});
+    tgt.balance=bal; fillDrops(); refreshStats();
+    logAction(`Adjusted ${tgt.name} balance from ${fmt(old)} to ${fmt(bal)}`,'warn');
+    unload(); msg('adj-msg',`✓ Balance for ${tgt.name} adjusted to ${fmt(bal)}.`,'ok');
+    document.getElementById('adj-bal').value=''; document.getElementById('adj-reason').value='';
+  } catch(e){unload();msg('adj-msg','Error: '+e.message,'err');}
+}
+
+// ══ SEND MESSAGE ══
+async function doSendMessage() {
+  const id=document.getElementById('note-tgt').value;
+  const subject=document.getElementById('note-subject').value.trim();
+  const body=document.getElementById('note-body').value.trim();
+  if(!id){msg('note-msg','Please select a recipient.','err');return;}
+  if(!subject){msg('note-msg','Please enter a subject.','err');return;}
+  if(!body){msg('note-msg','Please enter a message.','err');return;}
+  const rec=allAccs.find(a=>String(a.id)===String(id));
+  load('Sending message...');
+  try {
+    await insMsg({account_id:rec.id,from_name:cu.name,subject,body,read:false});
+    logAction(`Sent message to ${rec.name}: "${subject}"`,'info');
+    unload(); msg('note-msg',`✓ Message sent to ${rec.name}.`,'ok');
+    document.getElementById('note-subject').value=''; document.getElementById('note-body').value='';
+  } catch(e){unload();msg('note-msg','Error: '+e.message,'err');}
+}
+
+// ══ ADD ACCOUNT ══
 async function doAddAccount() {
-  const name = document.getElementById('add-name').value.trim();
-  const acct = document.getElementById('add-acct').value.trim();
-  const bal  = parseFloat(document.getElementById('add-bal').value)||0;
-  const role = document.getElementById('add-role').value;
-  const pw   = document.getElementById('add-pw').value.trim();
-  if (!name) { msg('add-msg','Please enter a name.','err'); return; }
-  if (!acct) { msg('add-msg','Please enter an account number.','err'); return; }
-  if (role==='admin'&&!pw) { msg('add-msg','Admin accounts require a password.','err'); return; }
+  const name=document.getElementById('add-name').value.trim();
+  const acct=document.getElementById('add-acct').value.trim();
+  const bal=parseFloat(document.getElementById('add-bal').value)||0;
+  const role=document.getElementById('add-role').value;
+  const pw=document.getElementById('add-pw').value.trim();
+  if(!name){msg('add-msg','Please enter a name.','err');return;}
+  if(!acct){msg('add-msg','Please enter an account number.','err');return;}
+  if(role==='admin'&&!pw){msg('add-msg','Admin accounts require a password.','err');return;}
   load('Creating account...');
   try {
-    await insAcc({name, account_number:acct, balance:bal, role, password:role==='admin'?pw:null});
-    allAccs = await getAccs();
-    fillDrops(); renderAccTable();
-    unload();
-    msg('add-msg',`✓ Account created for ${name} (${acct}).`,'ok');
-    ['add-name','add-acct','add-bal','add-pw'].forEach(id => document.getElementById(id).value='');
+    await insAcc({name,account_number:acct,balance:bal,role,password:role==='admin'?pw:null,frozen:false});
+    allAccs=await getAccs(); fillDrops(); refreshStats(); renderAccTable();
+    logAction(`Created new ${role} account for ${name}`,'ok');
+    unload(); msg('add-msg',`✓ Account created for ${name} (${acct}).`,'ok');
+    ['add-name','add-acct','add-bal','add-pw'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('add-role').value='client';
     document.getElementById('add-pw-wrap').style.display='none';
-  } catch(e) { unload(); msg('add-msg','Error: '+e.message,'err'); }
+  } catch(e){unload();msg('add-msg','Error: '+e.message,'err');}
 }
 
-// ══════════════════════════════════
-// DELETE ACCOUNT
-// ══════════════════════════════════
+// ══ DELETE ACCOUNT ══
 async function doDelete() {
-  const id = document.getElementById('del-sel').value;
-  if (!id) { msg('del-msg','Please select an account.','err'); return; }
-  const tgt = allAccs.find(a=>String(a.id)===String(id));
-  if (!tgt) { msg('del-msg','Account not found.','err'); return; }
+  const id=document.getElementById('del-sel').value;
+  if(!id){msg('del-msg','Please select an account.','err');return;}
+  const tgt=allAccs.find(a=>String(a.id)===String(id));
+  if(!tgt){msg('del-msg','Account not found.','err');return;}
   load('Deleting account...');
   try {
-    await delAcc(id);
-    allAccs = await getAccs();
-    fillDrops(); renderAccTable();
-    unload();
-    document.getElementById('del-warn').classList.remove('show');
-    document.getElementById('del-sel').value='';
-    msg('del-msg',`✓ Account for ${tgt.name} (${tgt.account_number}) permanently deleted.`,'ok');
-  } catch(e) { unload(); msg('del-msg','Error: '+e.message,'err'); }
+    await delAcc(id); allAccs=await getAccs(); fillDrops(); refreshStats(); renderAccTable();
+    logAction(`Deleted account for ${tgt.name}`,'danger');
+    unload(); document.getElementById('del-warn').classList.remove('show'); document.getElementById('del-sel').value='';
+    msg('del-msg',`✓ Account for ${tgt.name} permanently deleted.`,'ok');
+  } catch(e){unload();msg('del-msg','Error: '+e.message,'err');}
 }
 
-// ══════════════════════════════════
-// RENDER
-// ══════════════════════════════════
-async function renderTx() {
-  const tb = document.getElementById('tx-body');
-  tb.innerHTML = '<tr><td colspan="4" class="tempty">Loading...</td></tr>';
+// ══ EDIT ACCOUNT MODAL ══
+function openEdit(id) {
+  const acc=allAccs.find(a=>String(a.id)===String(id));
+  if(!acc)return;
+  document.getElementById('edit-id').value=acc.id;
+  document.getElementById('edit-name').value=acc.name;
+  document.getElementById('edit-acct').value=acc.account_number;
+  document.getElementById('edit-bal').value=acc.balance;
+  document.getElementById('edit-role').value=acc.role;
+  document.getElementById('edit-pw').value='';
+  document.getElementById('edit-msg').className='pmsg';
+  document.getElementById('edit-modal').classList.add('show');
+}
+function closeModal() { document.getElementById('edit-modal').classList.remove('show'); }
+async function saveEdit() {
+  const id=document.getElementById('edit-id').value;
+  const name=document.getElementById('edit-name').value.trim();
+  const acct=document.getElementById('edit-acct').value.trim();
+  const bal=parseFloat(document.getElementById('edit-bal').value)||0;
+  const role=document.getElementById('edit-role').value;
+  const pw=document.getElementById('edit-pw').value.trim();
+  if(!name||!acct){msg('edit-msg','Name and account number are required.','err');return;}
+  const upd={name,account_number:acct,balance:bal,role};
+  if(pw) upd.password=pw;
+  load('Saving changes...');
   try {
-    const txs = await getTxs(cu.id);
-    if (!txs.length) { tb.innerHTML='<tr><td colspan="4" class="tempty">No transactions yet.</td></tr>'; return; }
-    tb.innerHTML = txs.map(t => `
-      <tr>
-        <td>${new Date(t.created_at).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})}</td>
+    await updAcc(id,upd); allAccs=await getAccs(); fillDrops(); refreshStats(); renderAccTable();
+    logAction(`Edited account for ${name}`,'info');
+    unload(); closeModal();
+  } catch(e){unload();msg('edit-msg','Error: '+e.message,'err');}
+}
+
+// ══ RENDER TRANSACTIONS ══
+async function renderTx() {
+  const tb=document.getElementById('tx-body');
+  tb.innerHTML='<tr><td colspan="5" class="tempty">Loading...</td></tr>';
+  try {
+    let filter;
+    if(cu.role==='admin'){
+      const sel=document.getElementById('tx-filter-acct').value;
+      filter=sel==='all'?'account_id=gte.0':`account_id=eq.${sel}`;
+    } else { filter=`account_id=eq.${cu.id}`; }
+    const txs=await getTxs(filter);
+    if(!txs.length){tb.innerHTML='<tr><td colspan="5" class="tempty">No transactions found.</td></tr>';return;}
+    tb.innerHTML=txs.map(t=>{
+      const acc=allAccs.find(a=>String(a.id)===String(t.account_id));
+      const accName=acc?acc.name:'Unknown';
+      return `<tr>
+        <td>${dateStr(t.created_at)}</td>
+        <td style="font-weight:500">${accName}</td>
         <td>${t.description}</td>
         <td><span class="tbadge ${t.type}">${t.type==='credit'?'↑ Credit':'↓ Debit'}</span></td>
         <td class="tamt ${t.type}" style="text-align:right">${t.type==='debit'?'−':'+'} ${fmt(t.amount)}</td>
-      </tr>`).join('');
-  } catch(e) { tb.innerHTML='<tr><td colspan="4" class="tempty">Error loading transactions.</td></tr>'; }
+      </tr>`;
+    }).join('');
+  } catch(e){tb.innerHTML='<tr><td colspan="5" class="tempty">Error loading transactions.</td></tr>';}
 }
 
+// ══ RENDER ACCOUNTS TABLE ══
 function renderAccTable() {
-  document.getElementById('atbl-body').innerHTML = allAccs.map(a => `
+  document.getElementById('atbl-body').innerHTML=allAccs.map(a=>`
     <tr>
-      <td><strong>${a.name}</strong></td>
-      <td style="font-family:monospace;font-size:0.82rem">${a.account_number}</td>
-      <td><span style="font-size:0.71rem;font-weight:700;padding:3px 9px;border-radius:20px;background:${a.role==='admin'?'#fff0f2':'#edf7f1'};color:${a.role==='admin'?'#c8102e':'#1a7a4a'}">${a.role}</span></td>
+      <td><strong>${a.name}</strong>${a.frozen?'<span class="frozen-badge">FROZEN</span>':''}</td>
+      <td style="font-family:monospace;font-size:0.8rem">${a.account_number}</td>
+      <td><span style="font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:20px;background:${a.role==='admin'?'#fff0f2':'#edf7f1'};color:${a.role==='admin'?'var(--err)':'var(--ok)'}">${a.role}</span></td>
+      <td><span style="font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:20px;background:${a.frozen?'#fff0f2':'#f0f9f4'};color:${a.frozen?'var(--err)':'var(--ok)'}">${a.frozen?'Frozen':'Active'}</span></td>
       <td style="text-align:right;font-weight:600">${fmt(a.balance)}</td>
-      <td style="text-align:right"><button class="drbtn" onclick="qDel('${a.id}','${a.name}')">Delete</button></td>
+      <td style="text-align:right;white-space:nowrap">
+        <button class="ebtn" onclick="openEdit('${a.id}')">Edit</button>
+        <button class="drbtn" onclick="qDel('${a.id}','${a.name}')">Delete</button>
+      </td>
     </tr>`).join('');
 }
 
-async function qDel(id, name) {
-  if (!confirm(`Delete account for ${name}? This cannot be undone.`)) return;
-  load('Deleting...');
-  try {
-    await delAcc(id); allAccs = await getAccs(); fillDrops(); renderAccTable(); unload();
-  } catch(e) { unload(); alert('Error: '+e.message); }
+async function qDel(id,name) {
+  if(!confirm(`Delete account for ${name}? This cannot be undone.`))return;
+  load('Deleting...'); try { await delAcc(id); allAccs=await getAccs(); fillDrops(); refreshStats(); renderAccTable(); unload(); } catch(e){unload();alert('Error: '+e.message);}
 }
 
-// ══════════════════════════════════
-// INIT
-// ══════════════════════════════════
-(async () => {
-  // Animate login page in on load
-  const loginPage = document.getElementById('login-page');
-  loginPage.style.display = 'block';
-  loginPage.classList.add('active');
-  requestAnimationFrame(() => requestAnimationFrame(() => loginPage.classList.add('visible')));
+// ══ RENDER REPORTS ══
+function renderReports() {
+  const clients=allAccs.filter(a=>a.role==='client');
+  if(!clients.length)return;
+  const total=clients.reduce((s,a)=>s+Number(a.balance),0);
+  const avg=total/clients.length;
+  const sorted=[...clients].sort((a,b)=>Number(b.balance)-Number(a.balance));
+  document.getElementById('rep-total').textContent=fmt(total);
+  document.getElementById('rep-richest').textContent=sorted[0].name;
+  document.getElementById('rep-richest-bal').textContent=fmt(sorted[0].balance);
+  document.getElementById('rep-lowest').textContent=sorted[sorted.length-1].name;
+  document.getElementById('rep-lowest-bal').textContent=fmt(sorted[sorted.length-1].balance);
+  document.getElementById('rep-avg').textContent=fmt(avg);
+  document.getElementById('rep-body').innerHTML=sorted.map(a=>{
+    const pct=total>0?((Number(a.balance)/total)*100).toFixed(1):'0.0';
+    return `<tr>
+      <td><strong>${a.name}</strong></td>
+      <td style="font-family:monospace;font-size:0.8rem">${a.account_number}</td>
+      <td><span style="font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:20px;background:${a.frozen?'#fff0f2':'#f0f9f4'};color:${a.frozen?'var(--err)':'var(--ok)'}">${a.frozen?'Frozen':'Active'}</span></td>
+      <td style="text-align:right;font-weight:700;color:var(--blue)">${fmt(a.balance)}</td>
+      <td style="text-align:right">
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+          <div style="width:80px;height:6px;background:#eef0f4;border-radius:3px;overflow:hidden;">
+            <div style="width:${pct}%;height:100%;background:var(--blue);border-radius:3px;"></div>
+          </div>
+          <span style="font-size:0.78rem;color:var(--muted);min-width:36px;text-align:right">${pct}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
 
-  if (SB_URL.includes('YOUR_PROJECT')) {
-    const e = document.getElementById('lerr');
-    e.textContent = '⚙ Supabase not configured — see setup instructions below.';
-    e.style.cssText = 'display:block;background:#fffbe6;border-color:#ffe082;color:#7a5c00;';
-    document.getElementById('setup-info').style.display = 'block';
-    return;
-  }
-  load('Connecting to database...');
-  try { await seedIfEmpty(); unload(); }
-  catch(e) { unload(); }
+// ══ RENDER MESSAGES ══
+async function renderMessages() {
+  const inbox=document.getElementById('msg-inbox');
+  try {
+    const msgs=await getMsgs();
+    const mine=cu.role==='admin'?msgs:msgs.filter(m=>String(m.account_id)===String(cu.id));
+    if(!mine.length){inbox.innerHTML='<div class="tempty">No messages.</div>';return;}
+    inbox.innerHTML=mine.map(m=>`
+      <div style="padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:36px;height:36px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--yellow);font-weight:700;font-size:0.8rem;flex-shrink:0;">${(m.from_name||'?')[0].toUpperCase()}</div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-weight:700;font-size:0.84rem;">${m.subject}</span>
+            <span style="font-size:0.72rem;color:var(--muted);">${dateStr(m.created_at)}</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-bottom:4px;">From: ${m.from_name}</div>
+          <div style="font-size:0.83rem;color:var(--text);">${m.body}</div>
+        </div>
+      </div>`).join('');
+  } catch(e){inbox.innerHTML='<div class="tempty">Could not load messages. Make sure the messages table exists.</div>';}
+}
+
+// ══ SETTINGS ══
+function renderSettings() {
+  document.getElementById('info-name').textContent=cu.name;
+  document.getElementById('info-acct').textContent=cu.account_number||'—';
+  document.getElementById('info-role').textContent=cu.role==='admin'?'Admin / Staff':'Client';
+  document.getElementById('info-bal').textContent=fmt(cu.balance);
+  ['pw-current','pw-new','pw-confirm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pw-msg').className='pmsg';
+  const isClient=cu.role==='client';
+  document.getElementById('pw-client-note').style.display=isClient?'':'none';
+  document.getElementById('pw-fields').style.display=isClient?'none':'';
+}
+
+async function doChangePw() {
+  const cur=document.getElementById('pw-current').value.trim();
+  const nw=document.getElementById('pw-new').value.trim();
+  const conf=document.getElementById('pw-confirm').value.trim();
+  if(!cur){msg('pw-msg','Please enter your current password.','err');return;}
+  if(!nw){msg('pw-msg','Please enter a new password.','err');return;}
+  if(nw.length<4){msg('pw-msg','New password must be at least 4 characters.','err');return;}
+  if(nw!==conf){msg('pw-msg','New passwords do not match.','err');return;}
+  if((cu.password||'').replace(/\s/g,'')!==cur.replace(/\s/g,'')){msg('pw-msg','Current password is incorrect.','err');return;}
+  load('Updating password...');
+  try {
+    await updAcc(cu.id,{password:nw}); cu.password=nw;
+    logAction('Password changed','info');
+    unload(); msg('pw-msg','✓ Password updated successfully.','ok');
+    ['pw-current','pw-new','pw-confirm'].forEach(id=>document.getElementById(id).value='');
+  } catch(e){unload();msg('pw-msg','Error: '+e.message,'err');}
+}
+
+// ══ INIT ══
+(async()=>{
+  const lp=document.getElementById('login-page');
+  lp.style.display='block'; lp.classList.add('active');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>lp.classList.add('visible')));
+  if(SB_URL.includes('YOUR_PROJECT')) return;
+  load('Connecting...');
+  try { await seedIfEmpty(); unload(); } catch(e){unload();}
 })();
 </script>
 </body>
