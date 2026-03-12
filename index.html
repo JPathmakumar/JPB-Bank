@@ -419,8 +419,112 @@ body.dark .tnav-wrap{background:#0a0d14;}
 .hp-footer-badges{display:flex;gap:10px;}
 .hp-footer-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 10px;font-size:.68rem;color:rgba(255,255,255,.4);font-weight:600;}
 
-@media(max-width:900px){.hp-hero{flex-direction:column;padding:50px 24px 60px;}.hp-hero h1{font-size:2rem;}.hp-hero-card{min-width:unset;width:100%;}.hp-feat-grid,.hp-acct-grid{grid-template-columns:1fr 1fr;}.hp-why-grid{grid-template-columns:repeat(2,1fr);}.hp-footer-top{grid-template-columns:1fr 1fr;}.hp-nav{padding:0 20px;}.hp-nav-links{display:none;}.hp-promo{padding:18px 24px;}.hp-features,.hp-accounts,.hp-why,.hp-cta-strip{padding:48px 24px;}}
-@media(max-width:580px){.hp-feat-grid,.hp-acct-grid,.hp-why-grid{grid-template-columns:1fr;}.hp-footer-top{grid-template-columns:1fr;}}
+/* ══ DASHBOARD ══ */
+.db-wrap{background:#0f1117;min-height:calc(100vh - 58px);padding:0 0 40px;margin:-24px -20px 0;overflow:hidden;}
+.db-header{background:linear-gradient(135deg,#0a0d14 0%,#111827 100%);padding:28px 32px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.db-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.db-greeting{color:#fff;}
+.db-greeting h2{font-size:1.4rem;font-weight:700;margin-bottom:3px;letter-spacing:-.02em;}
+.db-greeting p{font-size:.78rem;color:rgba(255,255,255,.45);}
+.db-pill-row{display:flex;gap:8px;}
+.db-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 14px;font-size:.71rem;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:all .14s;}
+.db-pill:hover,.db-pill.active{background:rgba(0,114,206,.25);border-color:rgba(0,114,206,.5);color:#60b3ff;}
+/* Net worth hero bar */
+.db-networth{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:32px;padding:0 0 24px;}
+.db-nw-main{}.db-nw-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:4px;}
+.db-nw-val{font-size:2.6rem;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1;}
+.db-nw-change{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:8px;}
+.db-nw-change.up{background:rgba(26,122,74,.2);color:#4ade80;}
+.db-nw-change.dn{background:rgba(200,16,46,.2);color:#f87171;}
+.db-nw-breakdown{display:flex;gap:24px;}
+.db-nw-item{text-align:center;}
+.db-nw-item-label{font-size:.65rem;color:rgba(255,255,255,.35);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.db-nw-item-val{font-size:.95rem;font-weight:700;color:rgba(255,255,255,.8);}
+/* Mini sparkline chart */
+.db-spark{width:120px;height:40px;flex-shrink:0;}
+/* Main grid */
+.db-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:16px;padding:20px 32px 0;}
+.db-card{background:#1a1d27;border-radius:12px;border:1px solid rgba(255,255,255,.06);overflow:hidden;transition:border-color .2s;}
+.db-card:hover{border-color:rgba(255,255,255,.12);}
+.db-card-head{padding:16px 18px 0;display:flex;align-items:center;justify-content:space-between;}
+.db-card-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);}
+.db-card-action{font-size:.71rem;color:rgba(0,114,206,.8);cursor:pointer;font-weight:600;}
+.db-card-action:hover{color:#60b3ff;}
+.db-card-body{padding:14px 18px 18px;}
+/* Account cards grid */
+.db-acct-cards{display:grid;grid-template-columns:1fr;gap:10px;}
+.db-acct-item{background:rgba(255,255,255,.04);border-radius:8px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.05);transition:all .15s;cursor:pointer;}
+.db-acct-item:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);}
+.db-acct-item-l{display:flex;align-items:center;gap:11px;}
+.db-acct-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.db-acct-dot.chq{background:#0072ce;}
+.db-acct-dot.sav{background:#1a7a4a;}
+.db-acct-dot.pmt{background:#7c3aed;}
+.db-acct-item-name{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.8);}
+.db-acct-item-sub{font-size:.68rem;color:rgba(255,255,255,.35);margin-top:1px;}
+.db-acct-item-bal{font-size:.95rem;font-weight:700;color:#fff;}
+/* Bar chart */
+.db-bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:10px;}
+.db-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.db-bar{width:100%;border-radius:4px 4px 0 0;transition:height .6s cubic-bezier(.22,1,.36,1),opacity .3s;cursor:pointer;position:relative;}
+.db-bar:hover{opacity:.8;}
+.db-bar-lbl{font-size:.6rem;color:rgba(255,255,255,.3);text-align:center;}
+/* Donut chart */
+.db-donut-wrap{display:flex;align-items:center;gap:18px;}
+.db-donut{position:relative;flex-shrink:0;}
+.db-donut svg{transform:rotate(-90deg);}
+.db-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.db-donut-pct{font-size:1.05rem;font-weight:800;color:#fff;}
+.db-donut-sub{font-size:.6rem;color:rgba(255,255,255,.35);font-weight:600;}
+.db-legend{display:flex;flex-direction:column;gap:7px;flex:1;}
+.db-legend-item{display:flex;align-items:center;gap:8px;}
+.db-legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.db-legend-label{font-size:.72rem;color:rgba(255,255,255,.5);flex:1;}
+.db-legend-val{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.75);}
+/* Activity feed */
+.db-activity{display:flex;flex-direction:column;gap:0;}
+.db-tx{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.db-tx:last-child{border-bottom:none;}
+.db-tx-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.db-tx-icon.cr{background:rgba(26,122,74,.18);}
+.db-tx-icon.dr{background:rgba(200,16,46,.14);}
+.db-tx-icon.tr{background:rgba(0,83,155,.2);}
+.db-tx-info{flex:1;min-width:0;}
+.db-tx-desc{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.db-tx-date{font-size:.67rem;color:rgba(255,255,255,.3);margin-top:1px;}
+.db-tx-amt{font-size:.82rem;font-weight:700;white-space:nowrap;}
+.db-tx-amt.cr{color:#4ade80;}.db-tx-amt.dr{color:#f87171;}
+/* Trend line */
+.db-trend-line{width:100%;height:70px;margin-top:8px;}
+/* Quick action pills */
+.db-quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.db-qb{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 10px;cursor:pointer;transition:all .15s;text-align:center;font-family:'Inter',sans-serif;}
+.db-qb:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14);}
+.db-qb-icon{font-size:1.2rem;margin-bottom:5px;}
+.db-qb-label{font-size:.71rem;font-weight:600;color:rgba(255,255,255,.6);}
+/* Savings goal */
+.db-goal-bar-wrap{margin:12px 0 6px;}
+.db-goal-bar-bg{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;}
+.db-goal-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#1a7a4a,#4ade80);transition:width .8s cubic-bezier(.22,1,.36,1);}
+/* Stat mini cards */
+.db-mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.db-mini-stat{background:rgba(255,255,255,.04);border-radius:8px;padding:12px 13px;border:1px solid rgba(255,255,255,.05);}
+.db-ms-label{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.3);margin-bottom:4px;}
+.db-ms-val{font-size:1.1rem;font-weight:800;color:#fff;}
+.db-ms-sub{font-size:.67rem;color:rgba(255,255,255,.3);margin-top:2px;}
+/* Wide card */
+.db-card.wide{grid-column:span 2;}
+.db-card.full{grid-column:span 3;}
+/* Spending category row */
+.db-spend-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.db-spend-row:last-child{border-bottom:none;}
+.db-spend-icon{font-size:.95rem;width:28px;text-align:center;}
+.db-spend-label{font-size:.77rem;color:rgba(255,255,255,.6);flex:1;}
+.db-spend-bar-wrap{width:90px;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;}
+.db-spend-bar{height:100%;border-radius:3px;transition:width .6s ease;}
+.db-spend-amt{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.75);min-width:44px;text-align:right;}
+@media(max-width:900px){.db-grid{grid-template-columns:1fr 1fr;padding:14px 16px 0;}.db-card.full{grid-column:span 2;}.db-header{padding:20px 16px 0;}.db-networth{grid-template-columns:1fr;gap:14px;}.db-spark{display:none;}.db-nw-breakdown{flex-wrap:wrap;gap:14px;}}
+@media(max-width:580px){.db-grid{grid-template-columns:1fr;}.db-card.wide,.db-card.full{grid-column:span 1;}.db-mini-stats{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -643,6 +747,30 @@ body.dark .tnav-wrap{background:#0a0d14;}
     </div>
   </section>
 
+  <!-- Raffle Banner -->
+  <section style="background:linear-gradient(90deg,#1a0533 0%,#2d0a5c 50%,#1a0533 100%);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:2px solid rgba(168,85,247,.3);border-bottom:2px solid rgba(168,85,247,.3);">
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div style="background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:12px;padding:14px 18px;text-align:center;flex-shrink:0;">
+        <div style="font-size:1.8rem;line-height:1;">🎟️</div>
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.8);margin-top:4px;">Weekly</div>
+      </div>
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);border-radius:20px;padding:3px 12px;font-size:.68rem;font-weight:700;color:#c084fc;text-transform:uppercase;letter-spacing:.09em;margin-bottom:8px;">🎉 New — Starting Monday, March 15, 2026</div>
+        <h3 style="font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-.01em;">JPB Bank Weekly Raffle</h3>
+        <p style="font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.55;max-width:520px;">Every Monday we draw a winner from our active clients. Open an account before March 15 to be eligible for the very first draw. Prizes will announced in class!</p>
+        <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.5);"><span style="color:#a855f7;">✓</span> Every Monday</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.5);"><span style="color:#a855f7;">✓</span> All active clients eligible</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.5);"><span style="color:#a855f7;">✓</span> Winner notified in class</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.5);"><span style="color:#a855f7;">✓</span> First draw: Mar 15, 2026</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.5);"><span style="color:#a855f7;">✓</span> Prizes are $1, $5, $10</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.5);"><span style="color:#a855f7;">✓</span> Prizes will be recieved in <b>Cash</b>!</div>
+        </div>
+      </div>
+    </div>
+    <button class="hp-cta-primary" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;padding:13px 26px;white-space:nowrap;flex-shrink:0;" onclick="showPage('login-page')">Join to Enter →</button>
+  </section>
+
   <!-- CTA Strip -->
   <section class="hp-cta-strip">
     <h2>Ready to earn your <span>$10 bonus</span>?</h2>
@@ -765,106 +893,223 @@ body.dark .tnav-wrap{background:#0a0d14;}
 
   <div class="wrap">
 
-    <!-- ════ OVERVIEW ════ -->
+    <!-- ════ OVERVIEW / DASHBOARD ════ -->
     <div id="sec-overview">
-      <div class="banner">
-        <div><h2 id="w-name">Welcome</h2><p id="w-sub">Today's date</p></div>
-        <div class="pill" id="w-pill">Personal</div>
-      </div>
-      <!-- Admin stats bar -->
-      <div class="stats-row" id="admin-stats" style="display:none;">
-        <div class="stat"><div class="stat-label">Clients</div><div class="stat-val" id="st-clients">—</div><div class="stat-sub">Active accounts</div></div>
-        <div class="stat" style="border-top-color:#f59e0b;"><div class="stat-label">Total Deposits</div><div class="stat-val" id="st-assets" style="font-size:1rem;">—</div><div class="stat-sub">All balances</div></div>
-        <div class="stat" style="border-top-color:var(--ok);"><div class="stat-label">Staff</div><div class="stat-val" id="st-admins">—</div><div class="stat-sub">Admin accounts</div></div>
-        <div class="stat" style="border-top-color:var(--err);"><div class="stat-label">Frozen</div><div class="stat-val" id="st-frozen">—</div><div class="stat-sub">Restricted accounts</div></div>
-      </div>
-      <!-- Account tiles -->
-      <div class="acc-tiles" id="ov-tiles"></div>
-      <div class="two-col">
-        <div>
-          <div class="sec-title">Quick Actions</div>
-          <div class="qa-bar" id="ov-actions">
-            <button class="qab" id="qa-dep" onclick="tog('p-dep','qa-dep')" style="display:none;">⬇ Deposit</button>
-            <button class="qab" id="qa-wit" onclick="tog('p-wit','qa-wit')" style="display:none;">⬆ Withdraw</button>
-            <button class="qab" onclick="goSec('transfers',null)">⇄ Transfer</button>
-            <button class="qab" onclick="goSec('bills',null)">📄 Pay Bill</button>
-            <button class="qab grn" id="qa-freeze" style="display:none;" onclick="tog('p-freeze','qa-freeze')">❄ Freeze/Unfreeze</button>
-            <button class="qab" id="qa-adj" style="display:none;" onclick="tog('p-adj','qa-adj')">✏ Adjust Balance</button>
-            <button class="qab" id="qa-sndmsg" style="display:none;" onclick="tog('p-sndmsg','qa-sndmsg')">✉ Message Client</button>
+      <div class="db-wrap">
+
+        <!-- Header -->
+        <div class="db-header">
+          <div class="db-header-top">
+            <div class="db-greeting">
+              <h2 id="w-name">Welcome back</h2>
+              <p id="w-sub">Today's overview</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <div class="db-pill-row" id="admin-stats-pill" style="display:none;">
+                <span class="db-pill active" id="st-clients-pill">— clients</span>
+                <span class="db-pill" id="st-frozen-pill" style="color:#f87171;border-color:rgba(248,113,113,.3);">— frozen</span>
+                <span class="db-pill" id="st-assets-pill">—</span>
+              </div>
+              <div class="pill" id="w-pill">Personal</div>
+            </div>
           </div>
 
-          <!-- Deposit panel -->
-          <div class="panel" id="p-dep"><h3>Deposit Funds</h3>
+          <!-- Net worth bar -->
+          <div class="db-networth">
+            <div class="db-nw-main">
+              <div class="db-nw-label">Total Net Worth</div>
+              <div class="db-nw-val" id="db-nw">$0.00</div>
+              <div class="db-nw-change up" id="db-nw-change">↑ 0.00% this month</div>
+            </div>
+            <div class="db-nw-breakdown">
+              <div class="db-nw-item">
+                <div class="db-nw-item-label">Chequing</div>
+                <div class="db-nw-item-val" id="db-chq-bal">$0.00</div>
+              </div>
+              <div class="db-nw-item">
+                <div class="db-nw-item-label">Savings</div>
+                <div class="db-nw-item-val" id="db-sav-bal" style="color:#4ade80;">$0.00</div>
+              </div>
+              <div class="db-nw-item" id="db-admin-total-wrap" style="display:none;">
+                <div class="db-nw-item-label">All Client Assets</div>
+                <div class="db-nw-item-val" id="db-admin-total" style="color:#facc15;">$0.00</div>
+              </div>
+            </div>
+            <!-- Sparkline SVG -->
+            <svg class="db-spark" viewBox="0 0 120 40" preserveAspectRatio="none" id="db-spark-svg">
+              <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0072ce" stop-opacity=".35"/><stop offset="100%" stop-color="#0072ce" stop-opacity="0"/></linearGradient></defs>
+              <path id="db-spark-fill" fill="url(#sg)" d=""/>
+              <path id="db-spark-line" fill="none" stroke="#0072ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d=""/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="db-grid">
+
+          <!-- Accounts card -->
+          <div class="db-card">
+            <div class="db-card-head">
+              <span class="db-card-title">My Accounts</span>
+              <span class="db-card-action" onclick="goSec('accounts',null)">View all →</span>
+            </div>
+            <div class="db-card-body">
+              <div class="db-acct-cards" id="db-acct-list"></div>
+            </div>
+          </div>
+
+          <!-- Balance trend -->
+          <div class="db-card">
+            <div class="db-card-head">
+              <span class="db-card-title">Balance Trend</span>
+              <span class="db-card-action" onclick="goSec('history',null)">History →</span>
+            </div>
+            <div class="db-card-body">
+              <div class="db-mini-stats">
+                <div class="db-mini-stat">
+                  <div class="db-ms-label">This Month</div>
+                  <div class="db-ms-val" id="db-month-net" style="color:#4ade80;">+$0</div>
+                  <div class="db-ms-sub">net change</div>
+                </div>
+                <div class="db-mini-stat">
+                  <div class="db-ms-label">Transactions</div>
+                  <div class="db-ms-val" id="db-tx-count">0</div>
+                  <div class="db-ms-sub">total all time</div>
+                </div>
+              </div>
+              <!-- Bar chart - 7 days -->
+              <div class="db-card-title" style="margin-bottom:8px;">Spending — Last 7 Days</div>
+              <div class="db-bar-chart" id="db-bar-chart"></div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="db-card">
+            <div class="db-card-head">
+              <span class="db-card-title">Quick Actions</span>
+            </div>
+            <div class="db-card-body">
+              <div class="db-quick" id="db-quick-grid">
+                <div class="db-qb" onclick="goSec('transfers',null)"><div class="db-qb-icon">⇄</div><div class="db-qb-label">Transfer</div></div>
+                <div class="db-qb" onclick="goSec('bills',null)"><div class="db-qb-icon">📄</div><div class="db-qb-label">Pay Bill</div></div>
+                <div class="db-qb" id="qb-dep" style="display:none;" onclick="showDepPanel()"><div class="db-qb-icon">⬇</div><div class="db-qb-label">Deposit</div></div>
+                <div class="db-qb" id="qb-wit" style="display:none;" onclick="showWitPanel()"><div class="db-qb-icon">⬆</div><div class="db-qb-label">Withdraw</div></div>
+                <div class="db-qb" id="qb-freeze" style="display:none;" onclick="showFreezePanel()"><div class="db-qb-icon">❄</div><div class="db-qb-label">Freeze Acct</div></div>
+                <div class="db-qb" id="qb-adj" style="display:none;" onclick="showAdjPanel()"><div class="db-qb-icon">✏</div><div class="db-qb-label">Adjust Bal</div></div>
+                <div class="db-qb" id="qb-msg" style="display:none;" onclick="showMsgPanel()"><div class="db-qb-icon">✉</div><div class="db-qb-label">Message</div></div>
+                <div class="db-qb" onclick="goSec('settings',null)"><div class="db-qb-icon">⚙</div><div class="db-qb-label">Settings</div></div>
+              </div>
+              <!-- Hidden admin panels triggered from quick actions -->
+              <div id="db-panel-area" style="margin-top:14px;"></div>
+            </div>
+          </div>
+
+          <!-- Spending breakdown (wide) -->
+          <div class="db-card wide">
+            <div class="db-card-head">
+              <span class="db-card-title">Spending Breakdown</span>
+              <span class="db-card-action" onclick="goSec('history',null)">Details →</span>
+            </div>
+            <div class="db-card-body" style="display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;">
+              <!-- Donut -->
+              <div class="db-donut">
+                <svg width="110" height="110" viewBox="0 0 110 110">
+                  <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0072ce" stop-opacity=".35"/><stop offset="100%" stop-color="#0072ce" stop-opacity="0"/></linearGradient></defs>
+                  <circle cx="55" cy="55" r="42" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="14"/>
+                  <circle id="db-donut-1" cx="55" cy="55" r="42" fill="none" stroke="#0072ce" stroke-width="14" stroke-dasharray="0 264" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:55px 55px;transition:stroke-dasharray .8s ease;"/>
+                  <circle id="db-donut-2" cx="55" cy="55" r="42" fill="none" stroke="#1a7a4a" stroke-width="14" stroke-dasharray="0 264" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:55px 55px;transition:stroke-dasharray .8s ease;"/>
+                  <circle id="db-donut-3" cx="55" cy="55" r="42" fill="none" stroke="#7c3aed" stroke-width="14" stroke-dasharray="0 264" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:55px 55px;transition:stroke-dasharray .8s ease;"/>
+                </svg>
+                <div class="db-donut-center">
+                  <div class="db-donut-pct" id="db-donut-pct">—</div>
+                  <div class="db-donut-sub">bills</div>
+                </div>
+              </div>
+              <!-- Categories -->
+              <div>
+                <div id="db-spend-cats"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity feed -->
+          <div class="db-card">
+            <div class="db-card-head">
+              <span class="db-card-title">Recent Activity</span>
+              <span class="db-card-action" onclick="goSec('history',null)">All →</span>
+            </div>
+            <div class="db-card-body" id="db-activity" style="padding-top:6px;">
+              <div style="color:rgba(255,255,255,.25);font-size:.78rem;text-align:center;padding:18px 0;">Loading...</div>
+            </div>
+          </div>
+
+          <!-- Savings goal (client) / Admin insights (admin) -->
+          <div class="db-card" id="db-goal-card" style="display:none;">
+            <div class="db-card-head">
+              <span class="db-card-title">💰 Savings Goal</span>
+            </div>
+            <div class="db-card-body">
+              <div style="font-size:.78rem;color:rgba(255,255,255,.4);margin-bottom:3px;">Goal: <strong style="color:rgba(255,255,255,.7);" id="db-goal-name">—</strong></div>
+              <div style="display:flex;justify-content:space-between;font-size:.77rem;color:rgba(255,255,255,.5);margin-bottom:6px;">
+                <span id="db-goal-curr">$0.00</span><span id="db-goal-tgt">$0.00</span>
+              </div>
+              <div class="db-goal-bar-wrap"><div class="db-goal-bar-bg"><div class="db-goal-bar-fill" id="db-goal-fill" style="width:0%;"></div></div></div>
+              <div style="font-size:.7rem;color:rgba(255,255,255,.3);margin-bottom:14px;" id="db-goal-pct">0% reached</div>
+              <div class="pf" style="margin-bottom:8px;"><label style="color:rgba(255,255,255,.4);font-size:.71rem;">Goal Name</label><input type="text" id="goal-name-inp" placeholder="e.g. Vacation" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff;"/></div>
+              <div class="prow">
+                <div class="pf"><label style="color:rgba(255,255,255,.4);font-size:.71rem;">Target ($)</label><input type="number" id="goal-tgt-inp" placeholder="5000" min="1" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff;"/></div>
+                <div class="pf" style="display:flex;align-items:flex-end;"><button class="pb pb-g" style="width:100%;margin-bottom:11px;" onclick="setGoal()">Set</button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="db-card" id="db-admin-insight" style="display:none;">
+            <div class="db-card-head"><span class="db-card-title">📊 Client Insights</span></div>
+            <div class="db-card-body" id="db-insight-body"></div>
+          </div>
+
+        </div><!-- /db-grid -->
+
+        <!-- Hidden panels (deposit/withdraw/etc) rendered below grid -->
+        <div style="padding:0 32px;margin-top:16px;" id="db-panels-below">
+          <div class="panel" id="p-dep" style="background:#1a1d27;border-color:rgba(0,114,206,.4);"><h3 style="color:#60b3ff;">Deposit Funds</h3>
             <div class="pf" id="dep-acct-w" style="display:none;"><label>Target Account</label><select id="dep-acct"></select></div>
             <div class="pf"><label>Amount (CAD $)</label><input type="number" id="dep-amt" placeholder="0.00" min="0.01" step="0.01"/></div>
             <div class="pf"><label>Description (optional)</label><input type="text" id="dep-desc" placeholder="e.g. Payroll deposit"/></div>
             <div class="p-acts"><button class="pb pb-b" onclick="doDeposit()">Confirm Deposit</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
             <div class="pmsg" id="dep-msg"></div>
           </div>
-
-          <!-- Withdraw panel -->
-          <div class="panel" id="p-wit"><h3>Withdraw Funds</h3>
+          <div class="panel" id="p-wit" style="background:#1a1d27;border-color:rgba(0,114,206,.4);"><h3 style="color:#60b3ff;">Withdraw Funds</h3>
             <div class="pf" id="wit-acct-w" style="display:none;"><label>Target Account</label><select id="wit-acct"></select></div>
             <div class="pf"><label>From</label><select id="wit-from"><option value="chequing">Chequing</option><option value="savings">Savings</option></select></div>
             <div class="pf"><label>Amount (CAD $)</label><input type="number" id="wit-amt" placeholder="0.00" min="0.01" step="0.01"/></div>
             <div class="p-acts"><button class="pb pb-b" onclick="doWithdraw()">Confirm Withdrawal</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
             <div class="pmsg" id="wit-msg"></div>
           </div>
-
-          <!-- Freeze panel (admin) -->
-          <div class="panel" id="p-freeze"><h3>Freeze / Unfreeze Account</h3>
-            <div class="info-hint">Frozen accounts cannot make transactions. Admins can still manage them.</div>
+          <div class="panel" id="p-freeze" style="background:#1a1d27;"><h3>Freeze / Unfreeze Account</h3>
+            <div class="info-hint">Frozen accounts cannot make transactions.</div>
             <div class="pf"><label>Select Account</label><select id="frz-tgt" onchange="updateFreezeUI()"></select></div>
             <div id="frz-status" style="font-size:.8rem;margin-bottom:10px;display:none;"></div>
             <div class="p-acts"><button class="pb pb-g" id="frz-btn" onclick="doFreeze()">Freeze Account</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
             <div class="pmsg" id="frz-msg"></div>
           </div>
-
-          <!-- Adjust balance (admin) -->
-          <div class="panel" id="p-adj"><h3>Adjust Balance</h3>
-            <div class="info-hint">Directly sets a client's balance. A transaction note is recorded.</div>
+          <div class="panel" id="p-adj" style="background:#1a1d27;"><h3>Adjust Balance</h3>
             <div class="pf"><label>Select Account</label><select id="adj-tgt"></select></div>
             <div class="pf"><label>New Balance ($)</label><input type="number" id="adj-bal" placeholder="0.00" min="0" step="0.01"/></div>
             <div class="pf"><label>Reason</label><input type="text" id="adj-reason" placeholder="e.g. Error correction"/></div>
-            <div class="p-acts"><button class="pb pb-b" onclick="doAdjust()">Apply Adjustment</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
+            <div class="p-acts"><button class="pb pb-b" onclick="doAdjust()">Apply</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
             <div class="pmsg" id="adj-msg"></div>
           </div>
-
-          <!-- Send message (admin) -->
-          <div class="panel" id="p-sndmsg"><h3>Send Message to Client</h3>
+          <div class="panel" id="p-sndmsg" style="background:#1a1d27;"><h3>Send Message to Client</h3>
             <div class="pf"><label>Recipient</label><select id="smsg-to"></select></div>
             <div class="pf"><label>Subject</label><input type="text" id="smsg-subj" placeholder="e.g. Account Notice"/></div>
             <div class="pf"><label>Message</label><textarea id="smsg-body" placeholder="Type message here..."></textarea></div>
-            <div class="p-acts"><button class="pb pb-b" onclick="doSendMsg()">Send Message</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
+            <div class="p-acts"><button class="pb pb-b" onclick="doSendMsg()">Send</button><button class="pb pb-ghost" onclick="closeAll()">Cancel</button></div>
             <div class="pmsg" id="smsg-msg"></div>
           </div>
         </div>
-        <div>
-          <!-- Recent activity -->
-          <div class="scard">
-            <div class="scard-head">Recent Activity</div>
-            <div id="ov-recent"><div class="tempty" style="font-size:.78rem;">Loading...</div></div>
-          </div>
-          <!-- Savings goal widget -->
-          <div class="scard" id="goal-widget" style="display:none;">
-            <div class="scard-head">💰 Savings Goal</div>
-            <div class="scard-body">
-              <div style="font-size:.77rem;color:var(--muted);margin-bottom:4px;">Goal: <strong id="goal-name-display">—</strong></div>
-              <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px;">
-                <span id="goal-curr">$0.00</span><span id="goal-tgt">$0.00</span>
-              </div>
-              <div class="prog"><div class="prog-fill" id="goal-bar" style="background:var(--ok);width:0%;"></div></div>
-              <div style="font-size:.71rem;color:var(--muted);margin-top:4px;" id="goal-pct">0% reached</div>
-              <div class="divider"></div>
-              <div class="pf"><label>Goal Name</label><input type="text" id="goal-name-inp" placeholder="e.g. Vacation"/></div>
-              <div class="prow">
-                <div class="pf"><label>Target ($)</label><input type="number" id="goal-tgt-inp" placeholder="5000" min="1"/></div>
-                <div class="pf" style="display:flex;align-items:flex-end;"><button class="pb pb-g" style="width:100%;margin-bottom:11px;" onclick="setGoal()">Set Goal</button></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      </div><!-- /db-wrap -->
     </div>
 
     <!-- ════ ACCOUNTS ════ -->
@@ -1418,6 +1663,11 @@ function refreshTiles() {
   const c=document.getElementById('tile-chq'); if(c) c.textContent=fmt(cu.balance);
   const s=document.getElementById('tile-sav'); if(s) s.textContent=fmt(cu.savings||0);
   updateInvTile();
+  // Refresh dashboard header balances
+  const nw=document.getElementById('db-nw'); if(nw) nw.textContent=fmt(Number(cu.balance)+Number(cu.savings||0));
+  const dc=document.getElementById('db-chq-bal'); if(dc) dc.textContent=fmt(cu.balance);
+  const ds2=document.getElementById('db-sav-bal'); if(ds2) ds2.textContent=fmt(cu.savings||0);
+  updateDbGoal();
 }
 
 function updateInvTile() {
@@ -1440,11 +1690,34 @@ function renderAccDetails() {
 // ══════════════ ADMIN STATS ══════════════
 function refreshStats() {
   const cl = allAccs.filter(a=>a.role==='client');
-  const total = cl.reduce((s,a)=>s+Number(a.balance),0);
-  document.getElementById('st-clients').textContent = cl.length;
-  document.getElementById('st-assets').textContent  = fmt(total);
-  document.getElementById('st-admins').textContent  = allAccs.filter(a=>a.role==='admin').length;
-  document.getElementById('st-frozen').textContent  = allAccs.filter(a=>a.frozen).length;
+  const total = cl.reduce((s,a)=>s+Number(a.balance)+Number(a.savings||0),0);
+  const frozen = allAccs.filter(a=>a.frozen).length;
+  // Old IDs (may still exist elsewhere)
+  const setEl = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  setEl('st-clients', cl.length);
+  setEl('st-assets',  fmt(total));
+  setEl('st-admins',  allAccs.filter(a=>a.role==='admin').length);
+  setEl('st-frozen',  frozen);
+  // New dashboard pills
+  setEl('st-clients-pill', cl.length+' clients');
+  setEl('st-frozen-pill',  frozen+' frozen');
+  setEl('st-assets-pill',  fmt(total)+' total');
+  // Admin net worth bar
+  const adt = document.getElementById('db-admin-total'); if(adt) adt.textContent = fmt(total);
+  const adw = document.getElementById('db-admin-total-wrap'); if(adw) adw.style.display = '';
+  // Admin insight card
+  const ib = document.getElementById('db-insight-body');
+  if (ib && cl.length) {
+    const sorted = [...cl].sort((a,b)=>Number(b.balance)-Number(a.balance));
+    const avg = total/cl.length;
+    ib.innerHTML = `
+      <div class="db-spend-row"><span class="db-spend-icon">👑</span><span class="db-spend-label">Highest Balance</span><span class="db-spend-amt" style="color:#facc15;">${fmt(sorted[0].balance)}</span></div>
+      <div class="db-spend-row" style="padding-left:28px;border:none;margin-top:-4px;margin-bottom:6px;"><span style="font-size:.68rem;color:rgba(255,255,255,.3);">${sorted[0].name}</span></div>
+      <div class="db-spend-row"><span class="db-spend-icon">📊</span><span class="db-spend-label">Average Balance</span><span class="db-spend-amt">${fmt(avg)}</span></div>
+      <div class="db-spend-row"><span class="db-spend-icon">👥</span><span class="db-spend-label">Total Clients</span><span class="db-spend-amt">${cl.length}</span></div>
+      <div class="db-spend-row"><span class="db-spend-icon">❄</span><span class="db-spend-label">Frozen Accounts</span><span class="db-spend-amt" style="${frozen>0?'color:#f87171;':''}">${frozen}</span></div>
+      <div class="db-spend-row"><span class="db-spend-icon">💼</span><span class="db-spend-label">Total Staff</span><span class="db-spend-amt">${allAccs.filter(a=>a.role==='admin').length}</span></div>`;
+  }
 }
 
 // ══════════════ DROPDOWNS ══════════════
@@ -1534,16 +1807,21 @@ function loadDash() {
   const av = document.getElementById('tu-avatar');
   av.textContent = cu.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   av.style.background = avatarColor(cu.name);
-  // Admin-only UI
-  ['tnav-admin','admin-stats'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display=isA?'':'none'; });
-  ['qa-freeze','qa-adj','qa-sndmsg','qa-dep','qa-wit'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display=isA?'':'none'; });
+  // Admin-only nav
+  const tnav = document.getElementById('tnav-admin'); if(tnav) tnav.style.display = isA ? '' : 'none';
+  // Show/hide admin stats pill row
+  const asp = document.getElementById('admin-stats-pill'); if(asp) asp.style.display = isA ? '' : 'none';
+  // Admin-only quick action buttons
+  ['qb-dep','qb-wit','qb-freeze','qb-adj','qb-msg'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display=isA?'':'none'; });
   document.getElementById('dep-acct-w').style.display = isA ? '' : 'none';
   document.getElementById('wit-acct-w').style.display = isA ? '' : 'none';
   document.getElementById('hf-acct').style.display    = isA ? '' : 'none';
   document.getElementById('hcol-acct').style.display  = isA ? '' : 'none';
-  document.getElementById('goal-widget').style.display = isA ? 'none' : '';
+  // Goal card
+  const gc = document.getElementById('db-goal-card'); if(gc) gc.style.display = isA ? 'none' : '';
+  const ai = document.getElementById('db-admin-insight'); if(ai) ai.style.display = isA ? '' : 'none';
   if (isA) { fillDrops(); refreshStats(); }
-  renderOvTiles(); renderOvRecent();
+  renderDashboard();
   startSessionTimer();
   closeAll(); showPage('main-page');
   goSec('overview', document.querySelector('.tnav'));
@@ -1930,6 +2208,211 @@ async function loadHistory() {
   } catch(e) { tb.innerHTML='<tr><td colspan="6" class="tempty">Error loading transactions.</td></tr>'; }
 }
 
+// ══════════════ DASHBOARD ══════════════
+async function renderDashboard() {
+  // Net worth header
+  const chq = Number(cu.balance||0), sav = Number(cu.savings||0);
+  const total = chq + sav;
+  const nwEl = document.getElementById('db-nw'); if(nwEl) nwEl.textContent = fmt(total);
+  const chqEl = document.getElementById('db-chq-bal'); if(chqEl) chqEl.textContent = fmt(chq);
+  const savEl = document.getElementById('db-sav-bal'); if(savEl) savEl.textContent = fmt(sav);
+
+  // Account list card
+  const al = document.getElementById('db-acct-list');
+  if (al) al.innerHTML = `
+    <div class="db-acct-item" onclick="goSec('accounts',null)">
+      <div class="db-acct-item-l"><div class="db-acct-dot chq"></div><div><div class="db-acct-item-name">Chequing</div><div class="db-acct-item-sub">${cu.account_number||'—'}</div></div></div>
+      <div class="db-acct-item-bal">${fmt(chq)}</div>
+    </div>
+    <div class="db-acct-item" onclick="goSec('transfers',null)">
+      <div class="db-acct-item-l"><div class="db-acct-dot sav"></div><div><div class="db-acct-item-name">High-Interest Savings</div><div class="db-acct-item-sub">2.50% p.a. · SAV-${(cu.account_number||'0000').replace(/\s/g,'').slice(-4)}</div></div></div>
+      <div class="db-acct-item-bal" style="color:#4ade80;">${fmt(sav)}</div>
+    </div>
+    <div class="db-acct-item" onclick="goSec('bills',null)">
+      <div class="db-acct-item-l"><div class="db-acct-dot pmt"></div><div><div class="db-acct-item-name">Payments</div><div class="db-acct-item-sub">Pencli Tax · Chair Rent · Desk Rent</div></div></div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.35);">→ Ms. Tosso</div>
+    </div>`;
+
+  // Load transactions for charts + activity
+  let txs = [];
+  try { txs = await getTxs(`account_id=eq.${cu.id}`); } catch(e) {}
+
+  // Transaction count
+  const txcEl = document.getElementById('db-tx-count'); if(txcEl) txcEl.textContent = txs.length;
+
+  // Monthly net change
+  const now = new Date(), thisMonth = txs.filter(t => {
+    const d = new Date(t.created_at);
+    return d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+  });
+  const monthNet = thisMonth.reduce((s,t) => t.type==='credit' ? s+Number(t.amount) : s-Number(t.amount), 0);
+  const mnEl = document.getElementById('db-month-net');
+  if (mnEl) { mnEl.textContent = (monthNet>=0?'+':'')+fmt(Math.abs(monthNet)); mnEl.style.color = monthNet>=0?'#4ade80':'#f87171'; }
+
+  // Net worth change label (simulate slight % based on savings)
+  const nwcEl = document.getElementById('db-nw-change');
+  if (nwcEl) {
+    const pct = total > 0 ? ((sav/total)*2.5).toFixed(2) : '0.00';
+    nwcEl.textContent = `↑ ${pct}% this month (interest)`;
+    nwcEl.className = 'db-nw-change up';
+  }
+
+  // Sparkline — balance over last 8 data points
+  renderSparkline(txs, total);
+
+  // Bar chart — last 7 days spending
+  renderBarChart(txs);
+
+  // Spending breakdown donut
+  renderSpendingBreakdown(txs);
+
+  // Activity feed
+  renderDbActivity(txs);
+
+  // Savings goal
+  updateDbGoal();
+
+  // Old renderOvTiles still needed for Accounts tab
+  renderOvTiles();
+}
+
+function renderSparkline(txs, currentTotal) {
+  const lineEl = document.getElementById('db-spark-line');
+  const fillEl = document.getElementById('db-spark-fill');
+  if (!lineEl || !fillEl) return;
+  // Build 8 synthetic balance points walking backwards from current
+  const points = [];
+  let running = currentTotal;
+  const sorted = [...txs].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  for (let i=0; i<8; i++) {
+    points.unshift(running);
+    const tx = sorted[i];
+    if (tx) running += tx.type==='credit' ? -Number(tx.amount) : Number(tx.amount);
+  }
+  const min = Math.min(...points), max = Math.max(...points);
+  const range = max - min || 1;
+  const W=120, H=40, pad=4;
+  const xs = points.map((_,i) => pad + (i/(points.length-1))*(W-pad*2));
+  const ys = points.map(p => H-pad - ((p-min)/range)*(H-pad*2));
+  const pts = xs.map((x,i)=>`${x},${ys[i]}`).join(' ');
+  lineEl.setAttribute('d', `M ${pts.split(' ').join(' L ')}`);
+  fillEl.setAttribute('d', `M ${xs[0]},${H} L ${pts.split(' ').join(' L ')} L ${xs[xs.length-1]},${H} Z`);
+}
+
+function renderBarChart(txs) {
+  const el = document.getElementById('db-bar-chart'); if(!el) return;
+  const days = [], labels = [];
+  for (let i=6; i>=0; i--) {
+    const d = new Date(); d.setDate(d.getDate()-i);
+    days.push(d.toDateString());
+    labels.push(d.toLocaleDateString('en-CA',{weekday:'short'}).slice(0,1));
+  }
+  const spending = days.map(day => txs.filter(t=>new Date(t.created_at).toDateString()===day&&t.type==='debit').reduce((s,t)=>s+Number(t.amount),0));
+  const maxSpend = Math.max(...spending, 1);
+  const colors = ['#0072ce','#1a7a4a','#7c3aed','#f59e0b','#0072ce','#1a7a4a','#f87171'];
+  el.innerHTML = spending.map((v,i)=>`
+    <div class="db-bar-wrap">
+      <div class="db-bar" style="height:${Math.max(4,Math.round((v/maxSpend)*72))}px;background:${colors[i]};opacity:${v>0?1:0.2};" title="${labels[i]}: ${fmt(v)}"></div>
+      <div class="db-bar-lbl">${labels[i]}</div>
+    </div>`).join('');
+}
+
+function renderSpendingBreakdown(txs) {
+  const debits = txs.filter(t=>t.type==='debit');
+  const cats = {
+    '📄 Bills': debits.filter(t=>t.description.toLowerCase().includes('rent')||t.description.toLowerCase().includes('tax')||t.description.toLowerCase().includes('bill')).reduce((s,t)=>s+Number(t.amount),0),
+    '⇄ Transfers': debits.filter(t=>t.description.toLowerCase().includes('transfer')||t.description.includes('→')).reduce((s,t)=>s+Number(t.amount),0),
+    '🏦 Wire': debits.filter(t=>t.description.toLowerCase().includes('wire')).reduce((s,t)=>s+Number(t.amount),0),
+    '📦 Other': 0
+  };
+  // Other = remainder
+  const known = cats['📄 Bills']+cats['⇄ Transfers']+cats['🏦 Wire'];
+  const total = debits.reduce((s,t)=>s+Number(t.amount),0);
+  cats['📦 Other'] = Math.max(0, total - known);
+
+  const totalCats = Object.values(cats).reduce((s,v)=>s+v,0)||1;
+  const colors = { '📄 Bills':'#0072ce', '⇄ Transfers':'#1a7a4a', '🏦 Wire':'#7c3aed', '📦 Other':'rgba(255,255,255,.25)' };
+  const circumference = 2 * Math.PI * 42; // 263.9
+
+  // Donut arcs
+  let offset = 0;
+  ['db-donut-1','db-donut-2','db-donut-3'].forEach((id,i) => {
+    const catName = Object.keys(cats)[i];
+    const pct = cats[catName] / totalCats;
+    const dash = pct * circumference;
+    const el = document.getElementById(id); if(!el) return;
+    el.style.stroke = colors[catName];
+    el.style.strokeDasharray = `${dash} ${circumference-dash}`;
+    el.style.strokeDashoffset = -offset;
+    offset += dash;
+  });
+
+  // Bills % in center
+  const billsPct = Math.round((cats['📄 Bills']/totalCats)*100)||0;
+  const dp = document.getElementById('db-donut-pct'); if(dp) dp.textContent = billsPct+'%';
+
+  // Legend
+  const sc = document.getElementById('db-spend-cats'); if(!sc) return;
+  const barColors = ['#0072ce','#1a7a4a','#7c3aed','rgba(255,255,255,.25)'];
+  sc.innerHTML = Object.entries(cats).map(([label,val],i)=>{
+    const pct = Math.round((val/totalCats)*100)||0;
+    return `<div class="db-spend-row">
+      <span class="db-spend-icon">${label.split(' ')[0]}</span>
+      <span class="db-spend-label">${label.split(' ').slice(1).join(' ')}</span>
+      <div class="db-spend-bar-wrap"><div class="db-spend-bar" style="width:${pct}%;background:${barColors[i]};"></div></div>
+      <span class="db-spend-amt">${fmt(val)}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderDbActivity(txs) {
+  const el = document.getElementById('db-activity'); if(!el) return;
+  if (!txs.length) { el.innerHTML='<div style="color:rgba(255,255,255,.25);font-size:.78rem;text-align:center;padding:18px 0;">No activity yet.</div>'; return; }
+  const icons = { credit:'➕', debit:'➖', transfer:'⇄', bill:'📄', wire:'🏦' };
+  el.innerHTML = txs.slice(0,7).map(t => {
+    const isCr = t.type==='credit';
+    const iconType = t.description.toLowerCase().includes('bill')||t.description.toLowerCase().includes('rent')||t.description.toLowerCase().includes('tax') ? 'bill'
+      : t.description.toLowerCase().includes('wire') ? 'wire'
+      : t.description.toLowerCase().includes('transfer')||t.description.includes('→')||t.description.includes('←') ? 'transfer'
+      : t.type;
+    return `<div class="db-tx">
+      <div class="db-tx-icon ${isCr?'cr':'dr'}">${icons[iconType]||'💳'}</div>
+      <div class="db-tx-info">
+        <div class="db-tx-desc">${t.description}</div>
+        <div class="db-tx-date">${ds(t.created_at)}</div>
+      </div>
+      <div class="db-tx-amt ${isCr?'cr':'dr'}">${isCr?'+':'−'}${fmt(t.amount)}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateDbGoal() {
+  if (!savingsGoal.target) return;
+  const curr = Number(cu.savings||0);
+  const pct = Math.min(100, (curr/savingsGoal.target*100));
+  const setEl = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  setEl('db-goal-name', savingsGoal.name||'—');
+  setEl('db-goal-curr', fmt(curr));
+  setEl('db-goal-tgt', fmt(savingsGoal.target));
+  setEl('db-goal-pct', pct.toFixed(1)+'% reached');
+  const fill = document.getElementById('db-goal-fill'); if(fill) fill.style.width=pct+'%';
+  // Also keep old widget updated
+  const setElOld = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  setElOld('goal-name-display', savingsGoal.name||'—');
+  setElOld('goal-curr', fmt(curr));
+  setElOld('goal-tgt', fmt(savingsGoal.target));
+  const gb = document.getElementById('goal-bar'); if(gb) gb.style.width=pct+'%';
+  setElOld('goal-pct', pct.toFixed(1)+'% reached');
+}
+
+// Quick action panel triggers for new dashboard
+function showDepPanel() { closeAll(); const p=document.getElementById('p-dep'); if(p){p.classList.add('open');p.scrollIntoView({behavior:'smooth',block:'nearest'});} }
+function showWitPanel() { closeAll(); const p=document.getElementById('p-wit'); if(p){p.classList.add('open');p.scrollIntoView({behavior:'smooth',block:'nearest'});} }
+function showFreezePanel() { closeAll(); const p=document.getElementById('p-freeze'); if(p){p.classList.add('open');p.scrollIntoView({behavior:'smooth',block:'nearest'});} }
+function showAdjPanel() { closeAll(); const p=document.getElementById('p-adj'); if(p){p.classList.add('open');p.scrollIntoView({behavior:'smooth',block:'nearest'});} }
+function showMsgPanel() { closeAll(); const p=document.getElementById('p-sndmsg'); if(p){p.classList.add('open');p.scrollIntoView({behavior:'smooth',block:'nearest'});} }
+
+
 async function renderOvRecent() {
   const el = document.getElementById('ov-recent');
   try {
@@ -1938,6 +2421,7 @@ async function renderOvRecent() {
     el.innerHTML = txs.slice(0,6).map(t=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 16px;border-bottom:1px solid #edf0f4;"><div style="flex:1;overflow:hidden;"><div style="font-size:.79rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${t.description}</div><div style="font-size:.69rem;color:var(--muted);">${ds(t.created_at)}</div></div><div style="font-weight:700;font-size:.8rem;white-space:nowrap;margin-left:8px;${t.type==='credit'?'color:var(--ok)':'color:var(--err)'}">${t.type==='debit'?'−':'+'} ${fmt(t.amount)}</div></div>`).join('');
   } catch(e) { el.innerHTML='<div class="tempty" style="font-size:.78rem;">Unable to load.</div>'; }
 }
+
 
 async function renderRecentTxList() {
   const el = document.getElementById('recent-tx-list');
@@ -2064,7 +2548,7 @@ function renderNotifs() {
 function setGoal() {
   const name=document.getElementById('goal-name-inp').value.trim();const target=parseFloat(document.getElementById('goal-tgt-inp').value);
   if(!name||!target||target<=0) return;
-  savingsGoal={name,target}; updateGoalWidget();
+  savingsGoal={name,target}; updateGoalWidget(); updateDbGoal();
 }
 function updateGoalWidget() {
   if(!savingsGoal.target) return;
