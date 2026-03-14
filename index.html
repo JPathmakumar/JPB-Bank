@@ -39,7 +39,8 @@ a{color:var(--blue-light);text-decoration:none;}
 .page{display:none;opacity:0;transform:translateY(16px);transition:opacity .36s cubic-bezier(.22,1,.36,1),transform .36s cubic-bezier(.22,1,.36,1);}
 .page.active{display:block;}
 .page.visible{opacity:1;transform:translateY(0);}
-.page.exit{opacity:0;transform:translateY(-12px);transition:opacity .2s ease,transform .2s ease;}
+.page.exit{opacity:0;transform:translateY(-12px);}
+#home-page.active, #login-page.active, #pin-page.active{display:flex;}
 
 /* ── LOGIN ── */
 #login-page{min-height:100vh;background:linear-gradient(140deg,#001f45 0%,var(--blue) 45%,#00539b 100%);display:flex;flex-direction:column;}
@@ -525,8 +526,33 @@ body.dark .tnav-wrap{background:#0a0d14;}
 .db-spend-amt{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.75);min-width:44px;text-align:right;}
 @media(max-width:900px){.db-grid{grid-template-columns:1fr 1fr;padding:14px 16px 0;}.db-card.full{grid-column:span 2;}.db-header{padding:20px 16px 0;}.db-networth{grid-template-columns:1fr;gap:14px;}.db-spark{display:none;}.db-nw-breakdown{flex-wrap:wrap;gap:14px;}}
 @media(max-width:580px){.db-grid{grid-template-columns:1fr;}.db-card.wide,.db-card.full{grid-column:span 1;}.db-mini-stats{grid-template-columns:1fr 1fr;}}
+/* ── PIN PAD ── */
+#pin-page{min-height:100vh;background:linear-gradient(140deg,#001f45 0%,var(--blue) 45%,#00539b 100%);display:flex;flex-direction:column;}
+.pin-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 20px 60px;}
+.pin-card{background:#fff;border-radius:var(--radius);width:100%;max-width:360px;padding:36px 32px 30px;box-shadow:0 10px 50px rgba(0,0,0,.28);text-align:center;animation:slideUp .4s cubic-bezier(.22,1,.36,1) both;}
+body.dark .pin-card{background:#1a1d27;}
+.pin-avatar{width:60px;height:60px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;}
+.pin-name{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+.pin-sub{font-size:.78rem;color:var(--muted);margin-bottom:24px;}
+.pin-dots{display:flex;gap:14px;justify-content:center;margin-bottom:24px;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:transparent;transition:all .18s;}
+.pin-dot.filled{background:var(--blue);border-color:var(--blue);}
+.pin-dot.error{background:var(--err);border-color:var(--err);}
+@keyframes pinShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.pin-key{background:#f4f6f9;border:1.5px solid var(--border);border-radius:8px;height:58px;font-size:1.2rem;font-weight:700;color:var(--text);cursor:pointer;font-family:'Inter',sans-serif;transition:all .12s;display:flex;align-items:center;justify-content:center;user-select:none;}
+.pin-key:hover{background:#e8ecf4;border-color:var(--blue-light);transform:translateY(-1px);}
+.pin-key:active{transform:scale(.96);background:#dde3ef;}
+body.dark .pin-key{background:#232736;border-color:#2a2f3d;color:var(--text);}
+body.dark .pin-key:hover{background:#2a3048;border-color:var(--blue-light);}
+.pin-key.zero{grid-column:2;}
+.pin-key.del{background:transparent;border-color:transparent;color:var(--muted);font-size:1.1rem;}
+.pin-key.del:hover{background:#fef2f2;border-color:var(--err);color:var(--err);}
+.pin-err{font-size:.76rem;color:var(--err);min-height:18px;margin-bottom:4px;font-weight:600;}
+.pin-lock{font-size:.72rem;color:var(--err);margin-top:8px;font-weight:600;}
+.pin-back{background:transparent;border:none;color:var(--muted);font-size:.76rem;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:underline;margin-top:10px;display:block;}
+.pin-back:hover{color:var(--blue-light);}
 </style>
-</head>
 <body>
 
 <!-- ── LOADING ── -->
@@ -859,6 +885,40 @@ body.dark .tnav-wrap{background:#0a0d14;}
       <div class="lf" id="pass-w" style="display:none;"><label>Password</label><input type="password" id="inp-pass" autocomplete="off"/></div>
       <div class="lerr" id="lerr">Invalid credentials. Please check and try again.</div>
       <button class="lbtn" onclick="doLogin()">Sign In →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PIN ══════════════ -->
+<div id="pin-page" class="page">
+  <div class="lt"><div class="lt-shield">JPB</div><div class="lt-brand">JPB <span>Bank</span></div></div>
+  <div class="pin-wrap">
+    <div class="pin-card">
+      <div class="pin-avatar" id="pin-avatar"></div>
+      <div class="pin-name" id="pin-name">—</div>
+      <div class="pin-sub">Enter your 4-digit PIN to continue</div>
+      <div class="pin-dots">
+        <div class="pin-dot" id="pd0"></div>
+        <div class="pin-dot" id="pd1"></div>
+        <div class="pin-dot" id="pd2"></div>
+        <div class="pin-dot" id="pd3"></div>
+      </div>
+      <div class="pin-err" id="pin-err"></div>
+      <div class="pin-grid">
+        <button class="pin-key" onclick="pinKey('1')">1</button>
+        <button class="pin-key" onclick="pinKey('2')">2</button>
+        <button class="pin-key" onclick="pinKey('3')">3</button>
+        <button class="pin-key" onclick="pinKey('4')">4</button>
+        <button class="pin-key" onclick="pinKey('5')">5</button>
+        <button class="pin-key" onclick="pinKey('6')">6</button>
+        <button class="pin-key" onclick="pinKey('7')">7</button>
+        <button class="pin-key" onclick="pinKey('8')">8</button>
+        <button class="pin-key" onclick="pinKey('9')">9</button>
+        <button class="pin-key zero" onclick="pinKey('0')">0</button>
+        <button class="pin-key del" onclick="pinDel()">⌫</button>
+      </div>
+      <div id="pin-lock" class="pin-lock" style="display:none;"></div>
+      <button class="pin-back" onclick="pinBack()">← Use a different account</button>
     </div>
   </div>
 </div>
@@ -1584,20 +1644,16 @@ function addNotif(title, body) {
 }
 
 function showPage(id) {
-  const cur = document.querySelector('.page.active.visible');
+  document.querySelectorAll('.page').forEach(p => {
+    p.style.display = 'none';
+    p.classList.remove('active','visible','exit');
+  });
   const nxt = document.getElementById(id);
-  if (cur && cur !== nxt) {
-    cur.classList.add('exit');
-    setTimeout(() => {
-      cur.classList.remove('active','visible','exit'); cur.style.display='none';
-      nxt.style.display='block'; nxt.classList.add('active');
-      requestAnimationFrame(() => requestAnimationFrame(() => nxt.classList.add('visible')));
-    }, 200);
-  } else {
-    document.querySelectorAll('.page').forEach(p => { p.classList.remove('active','visible','exit'); p.style.display='none'; });
-    nxt.style.display='block'; nxt.classList.add('active');
-    requestAnimationFrame(() => requestAnimationFrame(() => nxt.classList.add('visible')));
-  }
+  if (!nxt) return;
+  // Use the right display type per page
+  const flexPages = ['home-page','login-page','pin-page'];
+  nxt.style.display = flexPages.includes(id) ? 'flex' : 'block';
+  nxt.classList.add('active','visible');
 }
 
 const SECS = ['overview','accounts','transfers','bills','history','admin','settings'];
@@ -1634,6 +1690,7 @@ function closeAll() {
 // ══════════════ ACCOUNT TILES ══════════════
 function renderOvTiles() {
   const el = document.getElementById('ov-tiles');
+  if (!el) return;
   el.innerHTML = `
     <div class="acc-tile" onclick="goSec('accounts',null)">
       <div class="at-type">Chequing Account</div>
@@ -1789,12 +1846,92 @@ async function doLogin() {
       const all = await sb('/rest/v1/accounts?role=eq.admin&select=*');
       rows = all.filter(a => a.name.trim().toLowerCase()===name.toLowerCase() && a.password && a.password.replace(/\s/g,'')===pass.replace(/\s/g,''));
     }
-    if (!rows || !rows.length) { unload(); errEl.textContent='Invalid credentials. Please check and try again.'; errEl.classList.add('show'); return; }
-    cu = rows[0]; allAccs = await getAccs(); unload();
-    addNotif('Login successful', `Signed in at ${now()}. If this wasn't you, contact us immediately.`);
-    loadDash();
+    unload();
+    if (!rows || !rows.length) { errEl.textContent='Invalid credentials. Please check and try again.'; errEl.classList.add('show'); return; }
+    const matched = rows[0];
+    if (matched.frozen) { errEl.textContent='This account is frozen. Contact your administrator.'; errEl.classList.add('show'); return; }
+    if (matched.pin) { _pinPending = matched; _showPinPage(matched); }
+    else { await _pinFinish(matched); }
   } catch(e) { unload(); errEl.textContent='Connection error: '+e.message; errEl.classList.add('show'); }
 }
+
+// ── PIN ──
+let _pinPending = null, _pinBuf = '', _pinTries = 0, _pinLockUntil = 0;
+
+function _showPinPage(user) {
+  _pinBuf = ''; _pinTries = 0; _pinLockUntil = 0;
+  const av = document.getElementById('pin-avatar');
+  av.textContent = user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  av.style.background = avatarColor(user.name);
+  document.getElementById('pin-name').textContent = user.name;
+  document.getElementById('pin-err').textContent = '';
+  document.getElementById('pin-lock').style.display = 'none';
+  _pinDots();
+  showPage('pin-page');
+}
+
+function _pinDots(shake, err) {
+  for (let i=0; i<4; i++) {
+    const d = document.getElementById('pd'+i);
+    d.className = 'pin-dot' + (err ? ' error' : i < _pinBuf.length ? ' filled' : '');
+    if (shake) { d.style.animation='none'; void d.offsetWidth; d.style.animation='pinShake .35s ease'; }
+  }
+}
+
+function pinKey(digit) {
+  if (_pinLockUntil > Date.now() || _pinBuf.length >= 4) return;
+  _pinBuf += digit; _pinDots();
+  document.getElementById('pin-err').textContent = '';
+  if (_pinBuf.length === 4) setTimeout(_pinCheck, 80);
+}
+
+function pinDel() { if (_pinBuf.length) { _pinBuf = _pinBuf.slice(0,-1); _pinDots(); } }
+
+function _pinCheck() {
+  if (!_pinPending) return;
+  if (_pinBuf === (_pinPending.pin||'').trim()) {
+    delete _pinPending.pin; delete _pinPending.password;
+    _pinFinish(_pinPending);
+  } else {
+    _pinTries++;
+    _pinBuf = '';
+    _pinDots(true, true);
+    const left = 5 - _pinTries;
+    if (_pinTries >= 5) {
+      _pinLockUntil = Date.now() + 30000;
+      document.getElementById('pin-lock').style.display = '';
+      document.getElementById('pin-lock').textContent = '🔒 Too many attempts. Wait 30 seconds.';
+      document.getElementById('pin-err').textContent = '';
+      setTimeout(() => { _pinTries=0; _pinLockUntil=0; document.getElementById('pin-lock').style.display='none'; _pinDots(); }, 30000);
+    } else {
+      document.getElementById('pin-err').textContent = `Incorrect PIN — ${left} attempt${left===1?'':'s'} left.`;
+      setTimeout(_pinDots, 400);
+    }
+  }
+}
+
+async function _pinFinish(user) {
+  load('Loading your account...');
+  try {
+    cu = user; allAccs = await getAccs(); unload();
+    _pinPending = null;
+    addNotif('Login successful', `Signed in at ${now()}. If this wasn't you, contact us immediately.`);
+    loadDash();
+  } catch(e) {
+    unload();
+    document.getElementById('lerr').textContent = 'Connection error: '+e.message;
+    document.getElementById('lerr').classList.add('show');
+    showPage('login-page');
+  }
+}
+
+function pinBack() { _pinPending=null; _pinBuf=''; showPage('login-page'); }
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('pin-page')?.classList.contains('active')) return;
+  if (e.key>='0' && e.key<='9') pinKey(e.key);
+  if (e.key==='Backspace') pinDel();
+});
 
 function loadDash() {
   const isA = cu.role==='admin';
@@ -2415,6 +2552,7 @@ function showMsgPanel() { closeAll(); const p=document.getElementById('p-sndmsg'
 
 async function renderOvRecent() {
   const el = document.getElementById('ov-recent');
+  if (!el) return;
   try {
     const txs = await getTxs(`account_id=eq.${cu.id}`);
     if (!txs.length) { el.innerHTML='<div class="tempty" style="font-size:.78rem;">No activity yet.</div>'; return; }
@@ -2699,9 +2837,7 @@ async function execTrade() {
 
 // ══════════════ INIT ══════════════
 (async()=>{
-  const hp=document.getElementById('home-page');
-  hp.style.display='block'; hp.classList.add('active');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>hp.classList.add('visible')));
+  showPage('home-page');
   renderPayeeGrid();
   if(SB_URL.includes('YOUR_PROJECT')) return;
   load('Connecting to JPB Bank...');
